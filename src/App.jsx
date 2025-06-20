@@ -10,6 +10,8 @@ import Home from "./components/Home";
 import DoctorDashboard from "./components/DoctorDashboard";
 import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
+import Testimonial from "./components/testimonial";
+
 // import Login from "./components/login";
 // import SignUp from "./components/signup";
 
@@ -20,12 +22,20 @@ const App = () => {
         <Navbar />
         <main className="flex-grow px-4 py-6">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-            <Route path="/about" element={<AboutUs />} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Home />
+                  {/* <Services /> */}
+                  <Testimonial />
+                </>
+              }
+            />
+            {/* <Route path="/services" element={<Services />} /> */}
+            {/* <Route path="/signup" element={<Signup />} />          <Route path="/vaccination" element={<GetStarted />} /> */}
             <Route path="/contact" element={<ContactUs />} />
-            {/* <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} /> */}
+
           </Routes>
         </main>
         <Footer />
