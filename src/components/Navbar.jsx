@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import logo from "../assets/Logo.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <nav
-      className="
-                flex items-center justify-between flex-wrap bg-blue-950 shadow-md px-[80px] py-3 relative
-            "
-    >
+    <nav className="flex items-center justify-between flex-wrap bg-blue-950 shadow-md px-[80px] py-3 relative">
       <div className="flex items-center gap-2">
         <img
           src={logo}
@@ -32,12 +29,13 @@ const Navbar = () => {
       </button>
       <div
         className={`
-                    flex-col md:flex-row md:flex md:items-center gap-4
-                    absolute md:static top-full left-0 w-full md:w-auto bg-[#003447] md:bg-transparent shadow-md md:shadow-none z-10
-                    transition-all duration-300
-                    ${menuOpen ? "flex" : "hidden md:flex"}
-                `}
+          flex-col md:flex-row md:flex md:items-center gap-4
+          absolute md:static top-full left-0 w-full md:w-auto bg-[#003447] md:bg-transparent shadow-md md:shadow-none z-10
+          transition-all duration-300
+          ${menuOpen ? "flex" : "hidden md:flex"}
+        `}
       >
+        {/* Navbar links go here */}
         <input
           type="text"
           placeholder="Search..."
@@ -53,7 +51,7 @@ const Navbar = () => {
           to="/doctor-dashboard"
           className="text-white hover:text-[#bee9fb] font-medium px-2 py-1 transition-colors"
         >
-          Dashboard 
+          Dashboard
         </Link>
         <Link
           to="/about"
@@ -67,9 +65,6 @@ const Navbar = () => {
         >
           Contact Us
         </Link>
-       {
-              user ? <LogoutButton/> : <LoginButton/>
-       }
       </div>
     </nav>
   );
