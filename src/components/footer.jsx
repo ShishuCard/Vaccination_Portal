@@ -3,22 +3,22 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-950 text-white py-10 px-6 md:px-16">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
-        <div className="flex-1">
-          <h2 className="text-2xl font-bold leading-tight">
+    <footer className="bg-blue-950 text-white py-6 px-4 md:px-12 text-sm">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
+        <div>
+          <h2 className="text-lg font-semibold mb-1">
             ShishuCard – Empowering Child Healthcare
           </h2>
-          <p className="mt-3 text-gray-300 max-w-md">
-            Seamlessly manage and access your child’s health records,
-            vaccinations, and growth milestones — all in one secure place.
+          <p className="text-gray-300 leading-snug">
+            Seamlessly manage your child’s health records, vaccinations,
+            and milestones — all in one secure place.
           </p>
         </div>
 
-        <div className="flex-1">
-          <p className="mb-2">📍 21 Park Street, Kolkata, West Bengal 700016</p>
+        <div>
+          <p className="mb-1">📍 21 Park Street, Kolkata, WB 700016</p>
           <p>
-            📧{" "}
+            📧{' '}
             <a
               href="mailto:support@ShishuCard.xyz"
               className="hover:underline text-blue-100"
@@ -28,10 +28,9 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Links */}
-        <div className="flex-1 mt-6 md:mt-0">
-          <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
-          <ul className="space-y-2">
+        <div>
+          <h3 className="text-base font-medium mb-1">Quick Links</h3>
+          <ul className="space-y-1">
             <li>
               <Link to="/about" className="hover:underline text-blue-100">
                 About Us
@@ -51,7 +50,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-gray-700 mt-10 pt-4 text-center text-sm text-gray-300">
+      <div className="border-t border-gray-700 mt-6 pt-3 text-center text-xs text-gray-300">
         <p>© {new Date().getFullYear()} ShishuCard. All rights reserved.</p>
       </div>
     </footer>

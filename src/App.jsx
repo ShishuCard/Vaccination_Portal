@@ -11,6 +11,7 @@ import DoctorDashboard from "./components/DoctorDashboard";
 import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import Testimonial from "./components/testimonial";
+import Services from "./components/services"
 
 // import Login from "./components/login";
 // import SignUp from "./components/signup";
@@ -27,14 +28,17 @@ const App = () => {
               element={
                 <>
                   <Home />
-                  {/* <Services /> */}
+                  <Services />
                   <Testimonial />
                 </>
               }
             />
-            {/* <Route path="/services" element={<Services />} /> */}
-            {/* <Route path="/signup" element={<Signup />} />          <Route path="/vaccination" element={<GetStarted />} /> */}
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<AboutUs />} />
+            {/* <Route path="/signup" element={<SignUp />} />          
+            <Route path="/vaccination" element={<GetStarted />} /> */}
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
 
           </Routes>
         </main>

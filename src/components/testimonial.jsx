@@ -23,14 +23,14 @@ const testimonials = [
 
 const Testimonial = () => {
   return (
-    <div className="relative min-h-screen bg-blue-900 text-white py-20 px-4">
+    <div className="relative bg-blue-900 text-white py-12 px-4">
       <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-100 via-white to-blue-200 -z-10" />
 
-      <div className="text-center mb-12">
-        <p className="text-sm text-gray-100">
+      <div className="text-center mb-10">
+        <p className="text-xs text-gray-100 uppercase tracking-wider">
           Join the families already benefitting from Shishu Card
         </p>
-        <h2 className="text-4xl font-bold text-white mt-2">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mt-1">
           What Our Users Are Saying
         </h2>
       </div>
@@ -39,9 +39,9 @@ const Testimonial = () => {
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="bg-white text-black p-6 rounded-xl shadow-lg"
+            className="bg-white text-black p-5 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300 hover:-translate-y-1"
           >
-            <div className="flex items-center mb-4">
+            <div className="flex items-center mb-3">
               {Array(5)
                 .fill()
                 .map((_, i) => (
@@ -50,7 +50,9 @@ const Testimonial = () => {
                   </span>
                 ))}
             </div>
-            <p className="mb-4">“{testimonial.text}”</p>
+            <p className="mb-4 text-sm leading-relaxed">
+              “{testimonial.text}”
+            </p>
             <div className="flex items-center gap-3">
               <img
                 src={testimonial.image}
@@ -58,8 +60,8 @@ const Testimonial = () => {
                 className="w-10 h-10 rounded-full"
               />
               <div>
-                <p className="font-semibold">{testimonial.name}</p>
-                <p className="text-sm text-gray-600">{testimonial.role}</p>
+                <p className="font-semibold text-sm">{testimonial.name}</p>
+                <p className="text-xs text-gray-600">{testimonial.role}</p>
               </div>
             </div>
           </div>
