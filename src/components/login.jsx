@@ -91,9 +91,9 @@ const Login = () => {
           >
             Sign Up
           </button>
-            <div className="flex justify-center py-4">
-              <div className="h-px w-20 bg-gray-300" />
-            </div>
+          <div className="flex justify-center py-4">
+            <div className="h-px w-20 bg-gray-300" />
+          </div>
         </form>
       </div>
     </div>

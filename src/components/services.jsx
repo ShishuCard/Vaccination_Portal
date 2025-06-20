@@ -29,37 +29,38 @@ const services = [
 
 const Services = () => {
   return (
-    <div className="relative py-14 px-4 md:px-16 bg-white">
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-100 via-white to-blue-200 -z-10" />
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-blue-950">What We Offer</h2>
-        <p className="text-gray-700 mt-3 max-w-2xl mx-auto text-sm md:text-base">
+    <div className="relative py-20 px-4 md:px-16 overflow-hidden bg-white">
+      {/* Background gradient layer */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-white to-blue-200 -z-10 blur-sm" />
+
+      {/* Header */}
+      <div className="text-center mb-16">
+        <h2 className="text-3xl sm:text-4xl font-bold text-blue-950">What We Offer</h2>
+        <p className="text-gray-700 mt-3 max-w-2xl mx-auto text-sm sm:text-base">
           We bring accessible, affordable, and informative vaccine services to your fingertips. Empowering families with health tools backed by technology and awareness.
         </p>
       </div>
 
+      {/* Service Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {services.map((service, index) => (
           <div
             key={index}
-            className="bg-white shadow-md rounded-xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition duration-300"
+            className="bg-white rounded-xl border border-gray-100 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 p-6"
           >
             <div className="mb-4">{service.icon}</div>
-            <h3 className="text-lg font-semibold text-blue-950 mb-2">
-              {service.title}
-            </h3>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              {service.description}
-            </p>
-            <button className="mt-4 text-blue-900 font-medium hover:underline flex items-center gap-1 text-sm">
+            <h3 className="text-lg font-semibold text-blue-950 mb-2">{service.title}</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
+            <button className="mt-4 text-blue-900 text-sm font-medium hover:underline flex items-center gap-1">
               Learn More →
             </button>
           </div>
         ))}
       </div>
 
-      <div className="mt-10 flex justify-center">
-        <button className="px-6 py-2 rounded-full bg-blue-900 text-white font-medium hover:bg-blue-950 transition text-sm">
+      {/* View All Button */}
+      <div className="mt-12 flex justify-center">
+        <button className="px-6 py-2 text-sm rounded-full bg-blue-900 text-white font-medium hover:bg-blue-950 shadow transition duration-300">
           View All →
         </button>
       </div>

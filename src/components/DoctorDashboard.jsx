@@ -25,7 +25,7 @@ export default function DoctorDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-300 px-4 py-6 md:p-10">
+    <div className="min-h-screen bg-white px-4 py-6 md:p-10">
       {/* Header */}
       <div className="mb-6 flex justify-between items-center">
         <h1 className="text-2xl md:text-3xl font-bold text-blue-950">Doctor Dashboard</h1>

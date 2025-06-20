@@ -85,7 +85,7 @@ const Signup = () => {
             <div className="h-px w-20 bg-gray-300" />
           </div>
 
-        
+
         </form>
       </div>
     </div>
