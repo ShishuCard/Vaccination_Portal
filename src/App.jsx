@@ -14,6 +14,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import ChildPage from "./components/ChildPage";
 import VaccineEducation from "./components/VaccineEducation";
+import ImmunizationTracking from "./components/ImmunizationTrackingPage";
+import AffordableImmunization from "./components/Affordable";
 
 const App = () => {
 
@@ -41,7 +43,9 @@ const App = () => {
           <Route path="/vaccination" element={<GetStarted />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/vaccine-education" element={<VaccineEducation />} />
-          
+          <Route path="/Immunization-Tracking-Page" element={<ImmunizationTracking />} />
+          <Route path="/affordable" element={<AffordableImmunization />} />
+
           <Route
             path="/login"
             element={loading ? (

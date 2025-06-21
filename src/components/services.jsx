@@ -7,13 +7,15 @@ const services = [
     title: "Digital Vaccine Records",
     icon: <FaQrcode className="text-blue-600" />,
     description: "Instant access to complete vaccination records via QR code for parents and healthcare providers.",
-    color: "bg-blue-50"
+    color: "bg-blue-50",
+    link: "/vaccination"
   },
   {
     title: "Affordable Immunization",
     icon: <FaRupeeSign className="text-green-600" />,
     description: "Government-supported pricing to ensure all children receive vital vaccinations regardless of income.",
-    color: "bg-green-50"
+    color: "bg-green-50",
+    link: "/affordable"
   },
   {
     title: "Vaccine Education",
@@ -26,7 +28,8 @@ const services = [
     title: "Immunization Tracking",
     icon: <FaSyringe className="text-amber-600" />,
     description: "Personalized tracking system to ensure complete vaccination coverage for every child.",
-    color: "bg-amber-50"
+    color: "bg-amber-50",
+    link: "/Immunization-Tracking-Page"
   },
 ];
 
