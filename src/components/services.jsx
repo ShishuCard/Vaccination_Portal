@@ -1,5 +1,6 @@
 import React from "react";
 import { FaQrcode, FaRupeeSign, FaBullhorn, FaSyringe } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -18,7 +19,8 @@ const services = [
     title: "Vaccine Education",
     icon: <FaBullhorn className="text-purple-600" />,
     description: "Comprehensive resources about vaccine schedules, benefits, and community health impact.",
-    color: "bg-purple-50"
+    color: "bg-purple-50",
+    link: "/vaccine-education"
   },
   {
     title: "Immunization Tracking",
@@ -64,12 +66,17 @@ const Services = () => {
                 <p className="text-gray-500 text-sm mb-4">
                   {service.description}
                 </p>
-                <a href="#" className="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center">
-                  Learn more
-                  <svg className="ml-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                  </svg>
-                </a>
+                {service.link ? (
+                  <Link
+                    to={service.link}
+                    className="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center"
+                  >
+                    Learn more
+                    <svg className="ml-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </Link>
+                ) : null}
               </div>
             </div>
           ))}
@@ -77,12 +84,15 @@ const Services = () => {
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <button className="inline-flex items-center px-5 py-2.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 shadow-sm">
+          <Link
+            to="/services"
+            className="inline-flex items-center px-5 py-2.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 shadow-sm"
+          >
             Explore all features
             <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

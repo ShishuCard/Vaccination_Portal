@@ -13,6 +13,7 @@ import DoctorDashboard from "./components/DoctorDashboard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import ChildPage from "./components/ChildPage";
+import VaccineEducation from "./components/VaccineEducation";
 
 const App = () => {
 
@@ -39,6 +40,8 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/vaccination" element={<GetStarted />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/vaccine-education" element={<VaccineEducation />} />
+          
           <Route
             path="/login"
             element={loading ? (
