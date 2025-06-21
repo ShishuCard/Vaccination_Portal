@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../assets/Logo.png";
+import logo from "../assets/Logo.jpg";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
@@ -12,14 +12,14 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-800 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+        <div className="flex items-center justify-between h-16 ">
           {/* Logo and Brand */}
           <div className="flex items-center">
             <img
               src={logo}
               alt="Shishu Card Logo"
-              className="h-10 w-10"
+              className="h-10 w-10 rounded-xl"
             />
             <Link to="/" className="ml-2 text-xl font-semibold text-white">
               Shishu<span className="text-blue-200">Card</span>
