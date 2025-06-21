@@ -1,4 +1,3 @@
-// File: utils/email.js
 import emailjs from 'emailjs-com';
 
 const sendEmail = async ({ name, to_email, message }) => {

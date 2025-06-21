@@ -23,7 +23,7 @@ const App = () => {
       <div>
         <Navbar />
         <Routes>
-        <Route path="/child/:id" element={<ChildPage />} />
+          <Route path="/child/:id" element={<ChildPage />} />
           <Route
             path="/"
             element={
@@ -36,22 +36,23 @@ const App = () => {
           />
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<AboutUS />} />
-          <Route path="/signup" element={<Signup />} />          <Route path="/vaccination" element={<GetStarted />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/vaccination" element={<GetStarted />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route 
-          path="/login" 
-          element={loading ? (
-            <div className="flex justify-center items-center min-h-screen">
-              <p className="text-xl">Loading...</p>
-            </div>
-          ) : user ? <Navigate to="/doctor-dashboard" replace /> : <Login />} 
-        />
-        <Route path="/doctor-dashboard" 
-          element={loading ? (
-            <div className="flex justify-center items-center min-h-screen">
-              <p className="text-xl">Loading...</p>
-            </div>
-          ) : user ? <DoctorDashboard /> : <Navigate to="/login" replace />}
+          <Route
+            path="/login"
+            element={loading ? (
+              <div className="flex justify-center items-center min-h-screen">
+                <p className="text-xl">Loading...</p>
+              </div>
+            ) : user ? <Navigate to="/doctor-dashboard" replace /> : <Login />}
+          />
+          <Route path="/doctor-dashboard"
+            element={loading ? (
+              <div className="flex justify-center items-center min-h-screen">
+                <p className="text-xl">Loading...</p>
+              </div>
+            ) : user ? <DoctorDashboard /> : <Navigate to="/login" replace />}
           />
         </Routes>
         <Footer />

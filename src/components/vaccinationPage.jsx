@@ -400,11 +400,11 @@ const GetStarted = () => {
       });
 
     await sendEmail({
-    name: formData.childName,
-    to_email: formData.parentEmail,
-    message: `Your child ${formData.childName}'s vaccination card has been successfully registered. View the QR code or visit the hospital to check updates. https://ayush-id.vercel.app/child/1750238946893`,
-  });
-};
+      name: formData.childName,
+      to_email: formData.parentEmail,
+      message: `Your child ${formData.childName}'s vaccination card has been successfully registered. View the QR code or visit the hospital to check updates. https://ayush-id.vercel.app/child/1750238946893`,
+    });
+  };
 
 
   return (

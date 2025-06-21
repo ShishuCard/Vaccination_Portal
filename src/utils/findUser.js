@@ -1,4 +1,3 @@
-// firebaseQuery.js
 import { db } from "../firebase"
 import { ref, query, orderByChild, equalTo, get } from 'firebase/database';
 
@@ -10,7 +9,7 @@ export const getChildByChildId = async (childId) => {
     const snapshot = await get(q);
 
     if (snapshot.exists()) {
-      return snapshot.val(); // will return object with matching records
+      return snapshot.val();
     } else {
       return null;
     }
