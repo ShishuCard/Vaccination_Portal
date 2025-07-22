@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaCalendarAlt, FaShieldAlt, FaUsers, FaBook, FaQuestionCircle } from 'react-icons/fa';
+import { FaCalendarAlt, FaShieldAlt, FaUsers, FaBook, FaQuestionCircle, FaChevronDown, FaChevronUp} from 'react-icons/fa';
+import { useRef, useState } from 'react';
 
 const VaccineEducation = () => {
   // Vaccine schedule data
@@ -65,6 +66,13 @@ const VaccineEducation = () => {
       answer: 'No, children\'s immune systems handle many more antigens daily than vaccines contain.'
     }
   ];
+  
+  // Accordion state
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleAccordion = (index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -189,41 +197,110 @@ const VaccineEducation = () => {
 
       {/* FAQ Section */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
+  <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
           <FaQuestionCircle className="mr-3 text-purple-500" />
           Frequently Asked Questions
         </h2>
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2">{faq.question}</h3>
-              <p className="text-gray-600">{faq.answer}</p>
+
+   <div>
+      {faqs.map((faq, index) => {
+        const isOpen = openIndex === index;
+        const contentRef = useRef(null);
+
+        return (
+          <div
+            key={index}
+            className={`transition-all duration-200 rounded-r-md ${
+              isOpen
+                ? "bg-purple-50 border-l-4 border-purple-400"
+                : "bg-white border-b border-gray-200"
+            }`}
+          >
+            <button
+              className="flex justify-between items-center w-full p-4 text-left cursor-pointer"
+              onClick={() => toggleAccordion(index)}
+            >
+              <h3 className="text-lg font-semibold text-gray-900">
+                {faq.question}
+              </h3>
+              {isOpen ? (
+                <FaChevronUp className="text-gray-500" />
+              ) : (
+                <FaChevronDown className="text-gray-500" />
+              )}
+            </button>
+
+            <div
+              ref={contentRef}
+              className="overflow-hidden transition-all duration-300 ease-in-out px-4"
+              style={{
+                height: isOpen
+                  ? `${contentRef.current?.scrollHeight}px`
+                  : "0px",
+                opacity: isOpen ? 1 : 0,
+              }}
+            >
+              <p className="py-2 text-gray-700 mb-4">{faq.answer}</p>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        );
+      })}
+    </div>
+</section>
 
       {/* Resources Section */}
-      <section className="bg-white p-8 rounded-xl shadow-md">
+      <section className="bg-white p-8 rounded-xl">
         <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
           <FaBook className="mr-3 text-blue-500" />
           Additional Resources
         </h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="border-l-4 border-blue-500 pl-4">
-            <h3 className="text-xl font-semibold mb-2">Official Guidelines</h3>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Category 1 */}
+          <div className="bg-blue-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h3 className="text-xl font-semibold mb-3 text-blue-700">Official Guidelines</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-blue-600 hover:underline">WHO Immunization Schedule</a></li>
-              <li><a href="#" className="text-blue-600 hover:underline">CDC Vaccine Recommendations</a></li>
-              <li><a href="#" className="text-blue-600 hover:underline">Ministry of Health Guidelines</a></li>
+              <li>
+          <a href="https://www.who.int/health-topics/vaccines-and-immunization"
+            target="_blank" rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"> WHO : Vaccines and Immunization
+          </a>
+        </li>
+        <li>
+          <a href="https://www.who.int/news-room/fact-sheets/detail/immunization-coverage"
+            target="_blank" rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"> WHO : Immunization Coverage Fact Sheet
+          </a>
+        </li>
+        <li>
+          <a href="https://www.cdc.gov/vaccines-children/hcp/conversation-tips/index.html"
+            target="_blank" rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"> CDC : Talking with Parents about Vaccines
+          </a>
+        </li>
             </ul>
           </div>
-          <div className="border-l-4 border-green-500 pl-4">
-            <h3 className="text-xl font-semibold mb-2">Educational Materials</h3>
+          {/* Category 2 */}
+          <div className="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h3 className="text-xl font-semibold mb-3 text-green-700">Educational Materials</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-blue-600 hover:underline">Vaccine Safety Information</a></li>
-              <li><a href="#" className="text-blue-600 hover:underline">Parent's Guide to Immunization</a></li>
-              <li><a href="#" className="text-blue-600 hover:underline">Myths vs Facts About Vaccines</a></li>
+              <li>
+          <a href="https://www.immunize.org/clinical/topic/parent-handouts/"
+            target="_blank" rel="noopener noreferrer"
+            className="text-green-600 hover:underline"> Immunize.org : Parent Handouts
+          </a>
+        </li>
+        <li>
+          <a href="https://www.who.int/news-room/feature-stories/detail/how-to-talk-about-vaccines"
+            target="_blank" rel="noopener noreferrer"
+            className="text-green-600 hover:underline"> WHO : How to Talk About Vaccines
+          </a>
+        </li>
+        <li>
+          <a href="https://vaccineinformation.org/"
+            target="_blank" rel="noopener noreferrer"
+            className="text-green-600 hover:underline"> Immunization Action Coalition : Info for the Public
+          </a>
+        </li>
             </ul>
           </div>
         </div>
