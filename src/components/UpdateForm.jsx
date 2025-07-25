@@ -4,9 +4,9 @@ import vaccine from "../../vaccine.json";
 
 const VaccineModal = ({ isOpen, onClose, onSubmit, childData }) => {
   const [selectedVaccines, setSelectedVaccines] = useState(
-    vaccine.map(v => ({
+    childData.vaccinations.map(v => ({
       ...v,
-      done: v.done || false,
+      done: v.done,
       recommendedAge: v.recommendedAge || "Not specified" // Added recommended age field
     }))
   );
