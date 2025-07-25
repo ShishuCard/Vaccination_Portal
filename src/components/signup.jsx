@@ -171,7 +171,7 @@ const HospitalSignup = () => {
                       name="password"
                       value={hospitalData.password}
                       onChange={handleChange}
-                      placeholder="••••••••"
+                      placeholder="Enter Password"
                       className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
                       minLength="8"
@@ -193,7 +193,7 @@ const HospitalSignup = () => {
                       name="confirmPassword"
                       value={hospitalData.confirmPassword}
                       onChange={handleChange}
-                      placeholder="••••••••"
+                      placeholder="Confirm Password"
                       className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
                       minLength="8"
