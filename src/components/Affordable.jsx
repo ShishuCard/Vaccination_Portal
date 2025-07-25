@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaShieldAlt, FaMoneyBillWave, FaHospital, FaMapMarkerAlt, FaCalendarAlt, FaInfoCircle, FaUserShield } from 'react-icons/fa';
+import { FaShieldAlt, FaMoneyBillWave, FaHospital, FaMapMarkerAlt, FaCalendarAlt, FaInfoCircle, FaUserShield, FaUsers } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const AffordableImmunization = () => {
     // Sample data for vaccines
@@ -41,27 +42,7 @@ const AffordableImmunization = () => {
         }
     ];
 
-    // Government schemes
-    const schemes = [
-        {
-            name: 'Mission Indradhanush',
-            coverage: 'Provides free vaccination against 12 diseases',
-            eligibility: 'All children and pregnant women',
-            link: '#'
-        },
-        {
-            name: 'Universal Immunization Programme',
-            coverage: 'Free vaccines at government centers',
-            eligibility: 'All children below 5 years',
-            link: '#'
-        },
-        {
-            name: 'PMJAY Health Protection Scheme',
-            coverage: 'Includes vaccination for eligible families',
-            eligibility: 'Families below poverty line',
-            link: '#'
-        }
-    ];
+    
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -113,24 +94,171 @@ const AffordableImmunization = () => {
             {/* Government Schemes */}
             <div className="mb-16 bg-blue-50 p-8 rounded-xl">
                 <h2 className="text-3xl font-bold text-center mb-8">Government Immunization Schemes</h2>
-                <div className="grid md:grid-cols-3 gap-6">
-                    {schemes.map((scheme, index) => (
-                        <div key={index} className="bg-white p-6 rounded-lg shadow-md border border-blue-100">
-                            <h3 className="text-xl font-bold mb-3 text-blue-800">{scheme.name}</h3>
-                            <div className="flex items-start mb-3">
-                                <FaShieldAlt className="text-blue-500 mt-1 mr-2" />
-                                <p><strong>Coverage:</strong> {scheme.coverage}</p>
-                            </div>
-                            <div className="flex items-start mb-3">
-                                <FaUserShield className="text-blue-500 mt-1 mr-2" />
-                                <p><strong>Eligibility:</strong> {scheme.eligibility}</p>
-                            </div>
-                            <a href={scheme.link} className="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                                <FaInfoCircle className="mr-2" />
-                                Learn more about this scheme
-                            </a>
+                <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Comprehensive government initiatives ensuring free and affordable vaccination for all children and families across India
+                </p>
+                
+                <div className="grid md:grid-cols-3 gap-8">
+                    {/* Mission Indradhanush */}
+                    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow duration-300">
+                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+                            <FaShieldAlt className="text-3xl mb-3" />
+                            <h3 className="text-xl font-bold">Mission Indradhanush</h3>
+                            <p className="text-blue-100 text-sm mt-2">Flagship immunization program launched in 2014</p>
                         </div>
-                    ))}
+                        <div className="p-6">
+                            <div className="space-y-4">
+                                <div className="flex items-start">
+                                    <div className="bg-blue-100 p-2 rounded-full mr-3">
+                                        <FaUsers className="text-blue-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Target Beneficiaries</p>
+                                        <p className="text-gray-600 text-sm">All children and pregnant women</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <div className="bg-green-100 p-2 rounded-full mr-3">
+                                        <FaShieldAlt className="text-green-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Coverage</p>
+                                        <p className="text-gray-600 text-sm">12 vaccine-preventable diseases</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <div className="bg-purple-100 p-2 rounded-full mr-3">
+                                        <FaMapMarkerAlt className="text-purple-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Reach</p>
+                                        <p className="text-gray-600 text-sm">All districts nationwide</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mt-6 pt-4 border-t border-gray-200">
+                                <Link to="/schemes/mission-indradhanush" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                                    <span>Learn more about this scheme</span>
+                                    <FaInfoCircle />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Universal Immunization Programme */}
+                    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-green-100 hover:shadow-xl transition-shadow duration-300">
+                        <div className="bg-gradient-to-r from-green-600 to-green-700 p-6 text-white">
+                            <FaHospital className="text-3xl mb-3" />
+                            <h3 className="text-xl font-bold">Universal Immunization Programme</h3>
+                            <p className="text-green-100 text-sm mt-2">India's cornerstone immunization initiative since 1985</p>
+                        </div>
+                        <div className="p-6">
+                            <div className="space-y-4">
+                                <div className="flex items-start">
+                                    <div className="bg-green-100 p-2 rounded-full mr-3">
+                                        <FaUsers className="text-green-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Target Group</p>
+                                        <p className="text-gray-600 text-sm">All children below 5 years</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <div className="bg-blue-100 p-2 rounded-full mr-3">
+                                        <FaMoneyBillWave className="text-blue-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Cost</p>
+                                        <p className="text-gray-600 text-sm">Completely free at all centers</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <div className="bg-orange-100 p-2 rounded-full mr-3">
+                                        <FaCalendarAlt className="text-orange-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Availability</p>
+                                        <p className="text-gray-600 text-sm">Daily at fixed sites</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mt-6 pt-4 border-t border-gray-200">
+                                <Link to="/schemes/universal-immunization" className="flex items-center justify-between text-green-600 hover:text-green-800 font-medium transition-colors">
+                                    <span>Learn more about this scheme</span>
+                                    <FaInfoCircle />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* PMJAY Health Protection Scheme */}
+                    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-purple-100 hover:shadow-xl transition-shadow duration-300">
+                        <div className="bg-gradient-to-r from-purple-600 to-purple-700 p-6 text-white">
+                            <FaUserShield className="text-3xl mb-3" />
+                            <h3 className="text-xl font-bold">PMJAY Health Protection</h3>
+                            <p className="text-purple-100 text-sm mt-2">World's largest health insurance scheme</p>
+                        </div>
+                        <div className="p-6">
+                            <div className="space-y-4">
+                                <div className="flex items-start">
+                                    <div className="bg-purple-100 p-2 rounded-full mr-3">
+                                        <FaUsers className="text-purple-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Eligible Families</p>
+                                        <p className="text-gray-600 text-sm">Families below poverty line</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <div className="bg-green-100 p-2 rounded-full mr-3">
+                                        <FaMoneyBillWave className="text-green-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Coverage Amount</p>
+                                        <p className="text-gray-600 text-sm">₹5 lakh per family per year</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <div className="bg-blue-100 p-2 rounded-full mr-3">
+                                        <FaShieldAlt className="text-blue-600 text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">Benefits</p>
+                                        <p className="text-gray-600 text-sm">Includes vaccination support</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mt-6 pt-4 border-t border-gray-200">
+                                <Link to="/schemes/pmjay" className="flex items-center justify-between text-purple-600 hover:text-purple-800 font-medium transition-colors">
+                                    <span>Learn more about this scheme</span>
+                                    <FaInfoCircle />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Quick Stats */}
+                <div className="mt-12 bg-white p-6 rounded-xl shadow-md">
+                    <h3 className="text-xl font-bold text-center mb-6">Combined Impact of Government Schemes</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div>
+                            <div className="text-3xl font-bold text-blue-600">90%+</div>
+                            <div className="text-sm text-gray-600">Immunization Coverage</div>
+                        </div>
+                        <div>
+                            <div className="text-3xl font-bold text-green-600">50Cr+</div>
+                            <div className="text-sm text-gray-600">Beneficiaries Covered</div>
+                        </div>
+                        <div>
+                            <div className="text-3xl font-bold text-purple-600">₹5L</div>
+                            <div className="text-sm text-gray-600">Max Health Coverage</div>
+                        </div>
+                        <div>
+                            <div className="text-3xl font-bold text-orange-600">24K+</div>
+                            <div className="text-sm text-gray-600">Health Facilities</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
