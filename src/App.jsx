@@ -16,6 +16,9 @@ import ChildPage from "./components/ChildPage";
 import VaccineEducation from "./components/VaccineEducation";
 import ImmunizationTracking from "./components/ImmunizationTrackingPage";
 import AffordableImmunization from "./components/Affordable";
+import MissionIndradhanush from "./components/schemes/MissionIndradhanush";
+import UniversalImmunization from "./components/schemes/UniversalImmunization";
+import PMJAYScheme from "./components/schemes/PMJAYScheme";
 
 const App = () => {
 
@@ -45,6 +48,9 @@ const App = () => {
           <Route path="/vaccine-education" element={<VaccineEducation />} />
           <Route path="/Immunization-Tracking-Page" element={<ImmunizationTracking />} />
           <Route path="/affordable" element={<AffordableImmunization />} />
+          <Route path="/schemes/mission-indradhanush" element={<MissionIndradhanush />} />
+          <Route path="/schemes/universal-immunization" element={<UniversalImmunization />} />
+          <Route path="/schemes/pmjay" element={<PMJAYScheme />} />
 
           <Route
             path="/login"
