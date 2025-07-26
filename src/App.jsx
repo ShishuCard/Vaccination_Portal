@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate,useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Services from "./components/services";
@@ -20,6 +20,19 @@ import MissionIndradhanush from "./components/schemes/MissionIndradhanush";
 import UniversalImmunization from "./components/schemes/UniversalImmunization";
 import PMJAYScheme from "./components/schemes/PMJAYScheme";
 import useLenis from "./components/useLenis";// Custom hook for smooth scrolling
+import { useEffect } from "react";
+
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+
+  return null;
+};
+
 
 const App = () => {
 
@@ -30,6 +43,7 @@ const App = () => {
 
   return (
     <Router>
+       <ScrollToTop />
       <div>
         <Navbar />
         <Routes>
