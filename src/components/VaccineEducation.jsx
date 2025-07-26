@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCalendarAlt, FaShieldAlt, FaUsers, FaBook, FaQuestionCircle, FaChevronDown, FaChevronUp} from 'react-icons/fa';
+import { FaCalendarAlt, FaShieldAlt, FaUsers, FaBook, FaQuestionCircle, FaChevronDown, FaChevronUp ,FaSyringe , FaHeartbeat , FaBaby } from 'react-icons/fa';
 import { useRef, useState } from 'react';
 
 const VaccineEducation = () => {
@@ -32,24 +32,70 @@ const VaccineEducation = () => {
     }
   ];
 
-  // Vaccine benefits
-  const vaccineBenefits = [
+
+  //Vaccine details
+
+  const vaccineDetails = [
     {
-      icon: <FaShieldAlt className="text-blue-500 text-2xl" />,
-      title: 'Disease Prevention',
-      description: 'Vaccines prevent 2-3 million deaths each year from diseases like diphtheria, tetanus, pertussis, influenza and measles'
+      name: 'BCG',
+      age: 'At Birth',
+      diseases: 'Tuberculosis (TB)',
+      benefits: ['Prevents severe TB in children', 'Reduces TB meningitis risk'],
+      sideEffects: 'Minor swelling or scar at injection site',
+      icon: <FaSyringe className="text-red-500 text-2xl" />
     },
     {
-      icon: <FaUsers className="text-green-500 text-2xl" />,
-      title: 'Herd Immunity',
-      description: 'When enough people are vaccinated, it protects those who cannot receive vaccines, like newborns and immunocompromised individuals'
+      name: 'DTP',
+      age: '6-10 Weeks',
+      diseases: 'Diphtheria, Tetanus, Pertussis',
+      benefits: ['Prevents deadly bacterial infections', 'Protects from whooping cough'],
+      sideEffects: 'Mild fever, swelling at injection site',
+      icon: <FaHeartbeat className="text-pink-500 text-2xl" />
     },
     {
-      icon: <FaCalendarAlt className="text-purple-500 text-2xl" />,
-      title: 'Long-term Protection',
-      description: 'Many vaccines provide lifelong immunity, reducing healthcare costs and improving quality of life'
+      name: 'MMR',
+      age: '12-15 Months',
+      diseases: 'Measles, Mumps, Rubella',
+      benefits: ['Prevents outbreaks', 'Lifelong protection'],
+      sideEffects: 'Fever, mild rash',
+      icon: <FaBaby className="text-yellow-500 text-2xl" />
     }
   ];
+
+  // Vaccine benefits
+  const vaccineBenefits = [
+  {
+    icon: <FaShieldAlt className="text-blue-500 text-2xl" />,
+    title: 'Protects Lives',
+    description: 'Vaccines save 2–3 million lives each year by preventing deadly diseases like measles, tetanus, and influenza.'
+  },
+  {
+    icon: <FaUsers className="text-green-500 text-2xl" />,
+    title: 'Builds Community Immunity',
+    description: 'When more people are vaccinated, it limits the spread — protecting those who are too young or sick to be vaccinated.'
+  },
+  {
+    icon: <FaCalendarAlt className="text-purple-500 text-2xl" />,
+    title: 'Lifelong Defense',
+    description: 'Most childhood vaccines offer protection for life, reducing future hospital visits and health expenses.'
+  },
+  {
+    icon: <FaBook className="text-yellow-500 text-2xl" />,
+    title: 'Educated Decisions',
+    description: 'Getting vaccinated helps families make proactive, science-backed choices for long-term health and safety.'
+  },
+  {
+    icon: <FaHeartbeat className="text-red-500 text-2xl" />,
+    title: 'Stronger Immune System',
+    description: 'Vaccines train the body to fight real infections without causing illness, especially during early childhood.'
+  },
+  {
+    icon: <FaQuestionCircle className="text-indigo-500 text-2xl" />,
+    title: 'Trusted by Experts',
+    description: 'Backed by decades of research and approval from global health organizations like WHO and CDC.'
+  }
+];
+
 
   // FAQ section
   const faqs = [
@@ -119,6 +165,30 @@ const VaccineEducation = () => {
           </table>
         </div>
       </section>
+      
+
+      {/* Popular Vaccines */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
+          <FaSyringe className="mr-3 text-red-500" />
+          Popular Vaccines Explained
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {vaccineDetails.map((vaccine, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+              <div className="mb-4">{vaccine.icon}</div>
+              <h3 className="text-xl font-semibold mb-1">{vaccine.name}</h3>
+              <p className="text-sm text-gray-500 mb-2">Given: {vaccine.age}</p>
+              <p className="text-sm text-gray-700 mb-2"><strong>Protects against:</strong> {vaccine.diseases}</p>
+              <ul className="list-disc list-inside text-gray-600 mb-2">
+                {vaccine.benefits.map((b, i) => <li key={i}>{b}</li>)}
+              </ul>
+              <p className="text-sm text-gray-500 italic">Side Effects: {vaccine.sideEffects}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
 
       {/* Benefits Section */}
       <section className="mb-16">
