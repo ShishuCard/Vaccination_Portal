@@ -19,11 +19,15 @@ import AffordableImmunization from "./components/Affordable";
 import MissionIndradhanush from "./components/schemes/MissionIndradhanush";
 import UniversalImmunization from "./components/schemes/UniversalImmunization";
 import PMJAYScheme from "./components/schemes/PMJAYScheme";
+import useLenis from "./components/useLenis";// Custom hook for smooth scrolling
 
 const App = () => {
 
   const [user, loading] = useAuthState(auth);
   console.log(user)
+
+  useLenis(); // Initialize Lenis for smooth scrolling
+
   return (
     <Router>
       <div>
