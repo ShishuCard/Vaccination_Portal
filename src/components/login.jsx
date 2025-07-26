@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-import { FaUser, FaLock, FaArrowRight, FaGoogle, FaFacebook } from "react-icons/fa";
+import { FaUser, FaLock, FaArrowRight, FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // New state for password visibility
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -63,7 +64,7 @@ const Login = () => {
                 </div>
               </div>
 
-              {/* Password Field */}
+              {/* Password Field - Updated with toggle button */}
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
                   Password
@@ -73,13 +74,25 @@ const Login = () => {
                     <FaLock className="text-gray-400" />
                   </div>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"} // Toggle input type
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="••••••••"
+                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
+                  {/* Password visibility toggle button */}
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <FaEyeSlash className="text-gray-400 hover:text-gray-600" />
+                    ) : (
+                      <FaEye className="text-gray-400 hover:text-gray-600" />
+                    )}
+                  </button>
                 </div>
               </div>
 

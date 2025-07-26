@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { FaUser, FaLock, FaArrowRight, FaHospital, FaIdCard } from "react-icons/fa";
+import { FaUser, FaLock, FaArrowRight, FaHospital, FaIdCard, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const HospitalSignup = () => {
   const [hospitalData, setHospitalData] = useState({
@@ -15,6 +15,8 @@ const HospitalSignup = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // For password field
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // For confirm password field
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -167,15 +169,27 @@ const HospitalSignup = () => {
                       <FaLock className="text-gray-400" />
                     </div>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="password"
                       value={hospitalData.password}
                       onChange={handleChange}
-                      placeholder="Enter Password"
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="••••••••"
+                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
                       minLength="8"
                     />
+                    {/* Password toggle button */}
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash className="text-gray-400 hover:text-gray-600" />
+                      ) : (
+                        <FaEye className="text-gray-400 hover:text-gray-600" />
+                      )}
+                    </button>
                   </div>
                 </div>
 
@@ -189,15 +203,27 @@ const HospitalSignup = () => {
                       <FaLock className="text-gray-400" />
                     </div>
                     <input
-                      type="password"
+                      type={showConfirmPassword ? "text" : "password"}
                       name="confirmPassword"
                       value={hospitalData.confirmPassword}
                       onChange={handleChange}
-                      placeholder="Confirm Password"
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="••••••••"
+                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
                       minLength="8"
                     />
+                    {/* Confirm password toggle button */}
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? (
+                        <FaEyeSlash className="text-gray-400 hover:text-gray-600" />
+                      ) : (
+                        <FaEye className="text-gray-400 hover:text-gray-600" />
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
