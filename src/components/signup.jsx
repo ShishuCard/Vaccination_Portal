@@ -3,62 +3,115 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { FaUser, FaLock, FaArrowRight, FaHospital, FaIdCard, FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+  FaUser,
+  FaLock,
+  FaArrowRight,
+  FaHospital,
+  FaIdCard,
+  FaEye,
+  FaEyeSlash,
+  FaUserAlt,
+  FaPhone,
+  FaHome
+} from "react-icons/fa";
 
-const HospitalSignup = () => {
-  const [hospitalData, setHospitalData] = useState({
-    name: "",
-    licenseNumber: "",
+const UnifiedSignup = () => {
+  const [userType, setUserType] = useState("hospital"); // 'hospital' or 'parent'
+  const [formData, setFormData] = useState({
+    // Common fields
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    
+    // Hospital-specific
+    hospitalName: "",
+    licenseNumber: "",
+    
+    // Parent-specific
+    fullName: "",
+    phone: "",
+    address: ""
   });
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // For password field
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // For confirm password field
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setHospitalData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     
-    if (hospitalData.password !== hospitalData.confirmPassword) {
+    // Password validation
+    if (formData.password !== formData.confirmPassword) {
       setError("Passwords don't match");
       return;
     }
-    if (hospitalData.password.length < 8) {
+    if (formData.password.length < 8) {
       setError("Password must be at least 8 characters");
       return;
+    }
+    
+    // User-specific validation
+    if (userType === "hospital") {
+      if (!formData.hospitalName.trim()) {
+        setError("Hospital name is required");
+        return;
+      }
+      if (!formData.licenseNumber.trim()) {
+        setError("License number is required");
+        return;
+      }
+    } else {
+      if (!formData.fullName.trim()) {
+        setError("Full name is required");
+        return;
+      }
     }
 
     setLoading(true);
 
     try {
+      // Create user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
         auth, 
-        hospitalData.email, 
-        hospitalData.password
+        formData.email, 
+        formData.password
       );
 
-      const hospitalDocRef = doc(db, "hospitals", userCredential.user.uid);
-      await setDoc(hospitalDocRef, {
-        name: hospitalData.name,
-        licenseNumber: hospitalData.licenseNumber,
-        email: hospitalData.email,
+      // Create user profile in Firestore
+      const userDocRef = doc(
+        db, 
+        userType === "hospital" ? "hospitals" : "parents", 
+        userCredential.user.uid
+      );
+      
+      const userData = {
+        email: formData.email,
         createdAt: new Date(),
-        role: "hospital"
-      });
+        role: userType
+      };
+      
+      // Add user-specific fields
+      if (userType === "hospital") {
+        userData.name = formData.hospitalName;
+        userData.licenseNumber = formData.licenseNumber;
+      } else {
+        userData.fullName = formData.fullName;
+        userData.phone = formData.phone;
+        userData.address = formData.address;
+      }
 
-      alert("Hospital registration successful!");
+      await setDoc(userDocRef, userData);
+
+      alert(`Registration successful! Welcome ${userType === "hospital" ? "Hospital" : "Parent"}`);
       navigate("/dashboard");
     } catch (error) {
       setError(error.message);
@@ -78,8 +131,42 @@ const HospitalSignup = () => {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           {/* Header */}
           <div className="bg-blue-600 py-6 px-8 text-center">
-            <h1 className="text-2xl font-bold text-white">Hospital Registration</h1>
-            <p className="text-blue-100 mt-1">Register your healthcare facility</p>
+            <h1 className="text-2xl font-bold text-white">
+              {userType === "hospital" ? "Hospital Registration" : "Parent Registration"}
+            </h1>
+            <p className="text-blue-100 mt-1">
+              {userType === "hospital" 
+                ? "Register your healthcare facility" 
+                : "Create your parent account"}
+            </p>
+          </div>
+
+          {/* User Type Toggle */}
+          <div className="flex justify-center mt-4">
+            <div className="inline-flex rounded-md shadow-sm" role="group">
+              <button
+                type="button"
+                onClick={() => setUserType("hospital")}
+                className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
+                  userType === "hospital"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                Hospital
+              </button>
+              <button
+                type="button"
+                onClick={() => setUserType("parent")}
+                className={`px-4 py-2 text-sm font-medium rounded-r-lg ${
+                  userType === "parent"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                Parent
+              </button>
+            </div>
           </div>
 
           {/* Form */}
@@ -91,55 +178,124 @@ const HospitalSignup = () => {
             )}
 
             <form onSubmit={handleSubmit}>
-              {/* Hospital Info Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-                {/* Hospital Name */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Hospital Name
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FaHospital className="text-gray-400" />
+              {/* User-specific fields */}
+              {userType === "hospital" ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                  {/* Hospital Name */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Hospital Name
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FaHospital className="text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        name="hospitalName"
+                        value={formData.hospitalName}
+                        onChange={handleChange}
+                        placeholder="Hospital Name"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        required
+                      />
                     </div>
-                    <input
-                      type="text"
-                      name="name"
-                      value={hospitalData.name}
-                      onChange={handleChange}
-                      placeholder="Hospital Name"
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      required
-                    />
+                  </div>
+
+                  {/* License Number */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      License No.
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FaIdCard className="text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        name="licenseNumber"
+                        value={formData.licenseNumber}
+                        onChange={handleChange}
+                        placeholder="License Number"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
-
-                {/* License Number */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    License No.
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FaIdCard className="text-gray-400" />
+              ) : (
+                <div className="grid grid-cols-1 gap-4 mb-5">
+                  {/* Full Name */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Full Name
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FaUserAlt className="text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        placeholder="Your Full Name"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        required
+                      />
                     </div>
-                    <input
-                      type="text"
-                      name="licenseNumber"
-                      value={hospitalData.licenseNumber}
-                      onChange={handleChange}
-                      placeholder="License Number"
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      required
-                    />
+                  </div>
+
+                  {/* Phone and Address */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Phone */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Phone
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaPhone className="text-gray-400" />
+                        </div>
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="Phone Number"
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Address */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Address
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaHome className="text-gray-400" />
+                        </div>
+                        <input
+                          type="text"
+                          name="address"
+                          value={formData.address}
+                          onChange={handleChange}
+                          placeholder="Your Address"
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
+              {/* Common Fields */}
               {/* Email Field */}
               <div className="space-y-2 mb-5">
                 <label className="block text-sm font-medium text-gray-700">
-                  Official Email
+                  Email
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -148,9 +304,9 @@ const HospitalSignup = () => {
                   <input
                     type="email"
                     name="email"
-                    value={hospitalData.email}
+                    value={formData.email}
                     onChange={handleChange}
-                    placeholder="hospital@email.com"
+                    placeholder="your@email.com"
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
@@ -171,7 +327,7 @@ const HospitalSignup = () => {
                     <input
                       type={showPassword ? "text" : "password"}
                       name="password"
-                      value={hospitalData.password}
+                      value={formData.password}
                       onChange={handleChange}
                       placeholder="••••••••"
                       className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -205,7 +361,7 @@ const HospitalSignup = () => {
                     <input
                       type={showConfirmPassword ? "text" : "password"}
                       name="confirmPassword"
-                      value={hospitalData.confirmPassword}
+                      value={formData.confirmPassword}
                       onChange={handleChange}
                       placeholder="••••••••"
                       className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -237,7 +393,7 @@ const HospitalSignup = () => {
                   required
                 />
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
-                  I certify this information is accurate and agree to the{" "}
+                  I agree to the{" "}
                   <Link to="/terms" className="font-medium text-blue-600 hover:text-blue-500">
                     Terms & Conditions
                   </Link>
@@ -251,10 +407,11 @@ const HospitalSignup = () => {
                 className={`w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 {loading ? (
-                  'Registering Hospital...'
+                  `Registering ${userType === "hospital" ? "Hospital" : "Parent"}...`
                 ) : (
                   <>
-                    Complete Registration <FaArrowRight className="ml-2" />
+                    Create {userType === "hospital" ? "Hospital" : "Parent"} Account 
+                    <FaArrowRight className="ml-2" />
                   </>
                 )}
               </button>
@@ -265,7 +422,7 @@ const HospitalSignup = () => {
               <p className="text-gray-600">
                 Already registered?{' '}
                 <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
-                  Hospital Login
+                  Sign In
                 </Link>
               </p>
             </div>
@@ -276,4 +433,4 @@ const HospitalSignup = () => {
   );
 };
 
-export default HospitalSignup;
+export default UnifiedSignup;
