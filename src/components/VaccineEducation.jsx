@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCalendarAlt, FaShieldAlt, FaUsers, FaBook, FaQuestionCircle, FaChevronDown, FaChevronUp} from 'react-icons/fa';
+import { FaCalendarAlt, FaShieldAlt, FaUsers, FaBook, FaQuestionCircle, FaChevronDown, FaChevronUp ,FaSyringe , FaHeartbeat , FaBaby } from 'react-icons/fa';
 import { useRef, useState } from 'react';
 
 const VaccineEducation = () => {
@@ -29,6 +29,36 @@ const VaccineEducation = () => {
       age: '12-15 Months',
       vaccines: ['MMR', 'PCV Booster', 'Hepatitis A'],
       description: 'Additional protection as immune system develops'
+    }
+  ];
+
+
+  //Vaccine details
+
+  const vaccineDetails = [
+    {
+      name: 'BCG',
+      age: 'At Birth',
+      diseases: 'Tuberculosis (TB)',
+      benefits: ['Prevents severe TB in children', 'Reduces TB meningitis risk'],
+      sideEffects: 'Minor swelling or scar at injection site',
+      icon: <FaSyringe className="text-red-500 text-2xl" />
+    },
+    {
+      name: 'DTP',
+      age: '6-10 Weeks',
+      diseases: 'Diphtheria, Tetanus, Pertussis',
+      benefits: ['Prevents deadly bacterial infections', 'Protects from whooping cough'],
+      sideEffects: 'Mild fever, swelling at injection site',
+      icon: <FaHeartbeat className="text-pink-500 text-2xl" />
+    },
+    {
+      name: 'MMR',
+      age: '12-15 Months',
+      diseases: 'Measles, Mumps, Rubella',
+      benefits: ['Prevents outbreaks', 'Lifelong protection'],
+      sideEffects: 'Fever, mild rash',
+      icon: <FaBaby className="text-yellow-500 text-2xl" />
     }
   ];
 
@@ -119,7 +149,31 @@ const VaccineEducation = () => {
           </table>
         </div>
       </section>
+      
 
+      {/* Popular Vaccines */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
+          <FaSyringe className="mr-3 text-red-500" />
+          Popular Vaccines Explained
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {vaccineDetails.map((vaccine, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+              <div className="mb-4">{vaccine.icon}</div>
+              <h3 className="text-xl font-semibold mb-1">{vaccine.name}</h3>
+              <p className="text-sm text-gray-500 mb-2">Given: {vaccine.age}</p>
+              <p className="text-sm text-gray-700 mb-2"><strong>Protects against:</strong> {vaccine.diseases}</p>
+              <ul className="list-disc list-inside text-gray-600 mb-2">
+                {vaccine.benefits.map((b, i) => <li key={i}>{b}</li>)}
+              </ul>
+              <p className="text-sm text-gray-500 italic">Side Effects: {vaccine.sideEffects}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      
       {/* Benefits Section */}
       <section className="mb-16">
         <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
