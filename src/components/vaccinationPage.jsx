@@ -83,12 +83,128 @@ const VaccinationPage = ({
 };
 
 const HomePage = ({ formData, setFormData, onNext }) => {
+  const [errors, setErrors] = useState({});
+
+  const validateField = (name, value) => {
+    const newErrors = { ...errors };
+
+    switch (name) {
+      case 'childName':
+        if (!value.trim()) {
+          newErrors.childName = 'Child name is required';
+        } else if (value.trim().length < 2) {
+          newErrors.childName = 'Name must be at least 2 characters';
+        } else if (!/^[a-zA-Z\s]+$/.test(value.trim())) {
+          newErrors.childName = 'Name can only contain letters and spaces';
+        } else {
+          delete newErrors.childName;
+        }
+        break;
+
+      case 'dob':
+        if (!value) {
+          newErrors.dob = 'Date of birth is required';
+        } else {
+          const selectedDate = new Date(value);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          if (selectedDate > today) {
+            newErrors.dob = 'Date of birth cannot be in the future';
+          } else if (selectedDate < new Date('1900-01-01')) {
+            newErrors.dob = 'Please enter a valid date of birth';
+          } else {
+            delete newErrors.dob;
+          }
+        }
+        break;
+
+      case 'birthplace':
+        if (!value.trim()) {
+          newErrors.birthplace = 'Birthplace is required';
+        } else if (value.trim().length < 2) {
+          newErrors.birthplace = 'Birthplace must be at least 2 characters';
+        } else if (!/^[a-zA-Z\s,.-]+$/.test(value.trim())) {
+          newErrors.birthplace = 'Birthplace contains invalid characters';
+        } else {
+          delete newErrors.birthplace;
+        }
+        break;
+
+      case 'parentEmail':
+        if (!value.trim()) {
+          newErrors.parentEmail = 'Parent email is required';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) {
+          newErrors.parentEmail = 'Please enter a valid email address';
+        } else {
+          delete newErrors.parentEmail;
+        }
+        break;
+
+      case 'motherName':
+      case 'fatherName':
+        if (!value.trim()) {
+          newErrors[name] = `${name === 'motherName' ? 'Mother' : 'Father'} name is required`;
+        } else if (value.trim().length < 2) {
+          newErrors[name] = 'Name must be at least 2 characters';
+        } else if (!/^[a-zA-Z\s]+$/.test(value.trim())) {
+          newErrors[name] = 'Name can only contain letters and spaces';
+        } else {
+          delete newErrors[name];
+        }
+        break;
+
+      case 'motherPhone':
+      case 'fatherPhone':
+        if (!value.trim()) {
+          newErrors[name] = `${name === 'motherPhone' ? 'Mother' : 'Father'} phone is required`;
+        } else if (!/^\+?[\d\s-()]{10,15}$/.test(value.trim())) {
+          newErrors[name] = 'Please enter a valid phone number (10-15 digits)';
+        } else {
+          delete newErrors[name];
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+    
+    // Validate field on change
+    validateField(name, value);
+  };
+
+  const validateForm = () => {
+    const fieldsToValidate = ['childName', 'dob', 'birthplace', 'parentEmail', 'motherName', 'fatherName', 'motherPhone', 'fatherPhone'];
+    let isValid = true;
+
+    fieldsToValidate.forEach(field => {
+      const fieldValue = formData[field] || '';
+      if (!validateField(field, fieldValue)) {
+        isValid = false;
+      }
+    });
+
+    return isValid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      onNext();
+    } else {
+      alert('Please fix all validation errors before proceeding.');
+    }
   };
 
   return (
@@ -96,29 +212,79 @@ const HomePage = ({ formData, setFormData, onNext }) => {
       <h2 className="text-3xl font-bold text-center mb-8 text-blue-950">
         Newborn Registration
       </h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          onNext();
-        }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6"
-      >
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
         <div>
           <label
             className="block font-semibold mb-2 text-blue-900"
             htmlFor="childName"
           >
-            Child Name
+            Child Name *
           </label>
           <input
             type="text"
             id="childName"
             name="childName"
-            className="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 bg-blue-50"
-            value={formData.childName}
+            className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 bg-blue-50 ${
+              errors.childName 
+                ? 'border-red-500 focus:ring-red-500' 
+                : 'border-blue-300 focus:ring-blue-900'
+            }`}
+            value={formData.childName || ''}
             onChange={handleChange}
+            placeholder="Enter child's full name"
             required
           />
+          {errors.childName && (
+            <p className="text-red-500 text-sm mt-1">{errors.childName}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            className="block font-semibold mb-2 text-blue-900"
+            htmlFor="dob"
+          >
+            Date of Birth *
+          </label>
+          <input
+            type="date"
+            id="dob"
+            name="dob"
+            className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 bg-blue-50 ${
+              errors.dob 
+                ? 'border-red-500 focus:ring-red-500' 
+                : 'border-blue-300 focus:ring-blue-900'
+            }`}
+            value={formData.dob || ''}
+            onChange={handleChange}
+            max={new Date().toISOString().split('T')[0]}
+            min="1900-01-01"
+            required
+          />
+          {errors.dob && (
+            <p className="text-red-500 text-sm mt-1">{errors.dob}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            className="block font-semibold mb-2 text-blue-900"
+            htmlFor="gender"
+          >
+            Gender *
+          </label>
+          <select
+            id="gender"
+            name="gender"
+            className="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 bg-blue-50"
+            value={formData.gender || ''}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
         </div>
 
         <div>
@@ -242,17 +408,25 @@ const HomePage = ({ formData, setFormData, onNext }) => {
             className="block font-semibold mb-2 text-blue-900"
             htmlFor="birthplace"
           >
-            Birthplace
+            Birthplace *
           </label>
           <input
             type="text"
             id="birthplace"
             name="birthplace"
-            className="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 bg-blue-50"
-            value={formData.birthplace}
+            className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 bg-blue-50 ${
+              errors.birthplace 
+                ? 'border-red-500 focus:ring-red-500' 
+                : 'border-blue-300 focus:ring-blue-900'
+            }`}
+            value={formData.birthplace || ''}
             onChange={handleChange}
+            placeholder="Enter place of birth"
             required
           />
+          {errors.birthplace && (
+            <p className="text-red-500 text-sm mt-1">{errors.birthplace}</p>
+          )}
         </div>
 
         <div>
@@ -260,17 +434,129 @@ const HomePage = ({ formData, setFormData, onNext }) => {
             className="block font-semibold mb-2 text-blue-900"
             htmlFor="parentEmail"
           >
-            Parent Email
+            Parent Email *
           </label>
           <input
             type="email"
             id="parentEmail"
             name="parentEmail"
-            className="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 bg-blue-50"
-            value={formData.parentEmail}
+            className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 bg-blue-50 ${
+              errors.parentEmail 
+                ? 'border-red-500 focus:ring-red-500' 
+                : 'border-blue-300 focus:ring-blue-900'
+            }`}
+            value={formData.parentEmail || ''}
             onChange={handleChange}
+            placeholder="parent@email.com"
             required
           />
+          {errors.parentEmail && (
+            <p className="text-red-500 text-sm mt-1">{errors.parentEmail}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            className="block font-semibold mb-2 text-blue-900"
+            htmlFor="motherName"
+          >
+            Mother's Name *
+          </label>
+          <input
+            type="text"
+            id="motherName"
+            name="motherName"
+            className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 bg-blue-50 ${
+              errors.motherName 
+                ? 'border-red-500 focus:ring-red-500' 
+                : 'border-blue-300 focus:ring-blue-900'
+            }`}
+            value={formData.motherName || ''}
+            onChange={handleChange}
+            placeholder="Enter mother's full name"
+            required
+          />
+          {errors.motherName && (
+            <p className="text-red-500 text-sm mt-1">{errors.motherName}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            className="block font-semibold mb-2 text-blue-900"
+            htmlFor="motherPhone"
+          >
+            Mother's Phone *
+          </label>
+          <input
+            type="tel"
+            id="motherPhone"
+            name="motherPhone"
+            className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 bg-blue-50 ${
+              errors.motherPhone 
+                ? 'border-red-500 focus:ring-red-500' 
+                : 'border-blue-300 focus:ring-blue-900'
+            }`}
+            value={formData.motherPhone || ''}
+            onChange={handleChange}
+            placeholder="Enter mother's phone number"
+            required
+          />
+          {errors.motherPhone && (
+            <p className="text-red-500 text-sm mt-1">{errors.motherPhone}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            className="block font-semibold mb-2 text-blue-900"
+            htmlFor="fatherName"
+          >
+            Father's Name *
+          </label>
+          <input
+            type="text"
+            id="fatherName"
+            name="fatherName"
+            className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 bg-blue-50 ${
+              errors.fatherName 
+                ? 'border-red-500 focus:ring-red-500' 
+                : 'border-blue-300 focus:ring-blue-900'
+            }`}
+            value={formData.fatherName || ''}
+            onChange={handleChange}
+            placeholder="Enter father's full name"
+            required
+          />
+          {errors.fatherName && (
+            <p className="text-red-500 text-sm mt-1">{errors.fatherName}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            className="block font-semibold mb-2 text-blue-900"
+            htmlFor="fatherPhone"
+          >
+            Father's Phone *
+          </label>
+          <input
+            type="tel"
+            id="fatherPhone"
+            name="fatherPhone"
+            className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 bg-blue-50 ${
+              errors.fatherPhone 
+                ? 'border-red-500 focus:ring-red-500' 
+                : 'border-blue-300 focus:ring-blue-900'
+            }`}
+            value={formData.fatherPhone || ''}
+            onChange={handleChange}
+            placeholder="Enter father's phone number"
+            required
+          />
+          {errors.fatherPhone && (
+            <p className="text-red-500 text-sm mt-1">{errors.fatherPhone}</p>
+          )}
         </div>
 
 
