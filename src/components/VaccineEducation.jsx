@@ -64,22 +64,38 @@ const VaccineEducation = () => {
 
   // Vaccine benefits
   const vaccineBenefits = [
-    {
-      icon: <FaShieldAlt className="text-blue-500 text-2xl" />,
-      title: 'Disease Prevention',
-      description: 'Vaccines prevent 2-3 million deaths each year from diseases like diphtheria, tetanus, pertussis, influenza and measles'
-    },
-    {
-      icon: <FaUsers className="text-green-500 text-2xl" />,
-      title: 'Herd Immunity',
-      description: 'When enough people are vaccinated, it protects those who cannot receive vaccines, like newborns and immunocompromised individuals'
-    },
-    {
-      icon: <FaCalendarAlt className="text-purple-500 text-2xl" />,
-      title: 'Long-term Protection',
-      description: 'Many vaccines provide lifelong immunity, reducing healthcare costs and improving quality of life'
-    }
-  ];
+  {
+    icon: <FaShieldAlt className="text-blue-500 text-2xl" />,
+    title: 'Protects Lives',
+    description: 'Vaccines save 2–3 million lives each year by preventing deadly diseases like measles, tetanus, and influenza.'
+  },
+  {
+    icon: <FaUsers className="text-green-500 text-2xl" />,
+    title: 'Builds Community Immunity',
+    description: 'When more people are vaccinated, it limits the spread — protecting those who are too young or sick to be vaccinated.'
+  },
+  {
+    icon: <FaCalendarAlt className="text-purple-500 text-2xl" />,
+    title: 'Lifelong Defense',
+    description: 'Most childhood vaccines offer protection for life, reducing future hospital visits and health expenses.'
+  },
+  {
+    icon: <FaBook className="text-yellow-500 text-2xl" />,
+    title: 'Educated Decisions',
+    description: 'Getting vaccinated helps families make proactive, science-backed choices for long-term health and safety.'
+  },
+  {
+    icon: <FaHeartbeat className="text-red-500 text-2xl" />,
+    title: 'Stronger Immune System',
+    description: 'Vaccines train the body to fight real infections without causing illness, especially during early childhood.'
+  },
+  {
+    icon: <FaQuestionCircle className="text-indigo-500 text-2xl" />,
+    title: 'Trusted by Experts',
+    description: 'Backed by decades of research and approval from global health organizations like WHO and CDC.'
+  }
+];
+
 
   // FAQ section
   const faqs = [
@@ -173,7 +189,7 @@ const VaccineEducation = () => {
         </div>
       </section>
 
-      
+
       {/* Benefits Section */}
       <section className="mb-16">
         <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
