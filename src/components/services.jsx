@@ -43,14 +43,14 @@ const Services = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="inline-block mb-3 text-sm font-medium text-blue-600">
+          <span className="inline-block mb-3 text-base font-semibold text-blue-600">
             OUR SERVICES
           </span>
           <h2 className="text-3xl font-light text-gray-900 mb-4">
             Comprehensive <span className="font-medium">Vaccination</span>{" "}
             Solutions
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-sm">
+          <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
             Technology-driven services designed to simplify child immunization
             for families and healthcare providers.
           </p>
