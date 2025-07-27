@@ -43,46 +43,46 @@ const Services = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="inline-block mb-3 text-sm font-medium text-blue-600">
+          <span className="inline-block mb-3 text-base font-semibold text-blue-600">
             OUR SERVICES
           </span>
           <h2 className="text-3xl font-light text-gray-900 mb-4">
             Comprehensive <span className="font-medium">Vaccination</span>{" "}
             Solutions
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-sm">
+          <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
             Technology-driven services designed to simplify child immunization
             for families and healthcare providers.
           </p>
         </div>
 
         {/* Service Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-100"
+              className="rounded-lg overflow-hidden border border-white/10 shadow-md backdrop-blur-md bg-[rgba(255,255,255,0.1)] hover:shadow-xl transform hover:scale-[1.03] transition duration-300 ease-in-out cursor-pointer"
             >
               <div className={`${service.color} p-5 flex justify-center`}>
-                <div className="bg-white p-3 rounded-full shadow-sm">
-                  {React.cloneElement(service.icon, { size: 20 })}
+                <div className="w-12 h-12 rounded-full bg-white shadow-sm border-gray flex items-center justify-center">
+                  {React.cloneElement(service.icon, { size: 24 })}
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <div className="p-4 sm:p-6 flex flex-col justify-center">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 max-w-xs sm:max-w-none">
                   {service.title}
                 </h3>
-                <p className="text-gray-500 text-sm mb-4">
+                <p className="text-gray-700 text-sm mb-4">
                   {service.description}
                 </p>
                 {service.link ? (
                   <Link
                     to={service.link}
-                    className="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center"
+                    className="group text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200 flex items-center"
                   >
                     Learn more
                     <svg
-                      className="ml-1 w-3 h-3"
+                      className="ml-1 w-3 h-3 transform transition-transform duration-200 group-hover:translate-x-1"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
