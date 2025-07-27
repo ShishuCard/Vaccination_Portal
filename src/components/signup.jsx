@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase";
+import { auth, firestore } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+
 import {
   FaUser,
   FaLock,
@@ -13,7 +14,7 @@ import {
   FaEyeSlash,
   FaUserAlt,
   FaPhone,
-  FaHome
+  FaHome,
 } from "react-icons/fa";
 
 const UnifiedSignup = () => {
@@ -23,17 +24,17 @@ const UnifiedSignup = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    
+
     // Hospital-specific
     hospitalName: "",
     licenseNumber: "",
-    
+
     // Parent-specific
     fullName: "",
     phone: "",
-    address: ""
+    address: "",
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -42,13 +43,13 @@ const UnifiedSignup = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    
+
     // Password validation
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords don't match");
@@ -58,7 +59,7 @@ const UnifiedSignup = () => {
       setError("Password must be at least 8 characters");
       return;
     }
-    
+
     // User-specific validation
     if (userType === "hospital") {
       if (!formData.hospitalName.trim()) {
@@ -77,28 +78,28 @@ const UnifiedSignup = () => {
     }
 
     setLoading(true);
-
+    console.log("outside of try");
     try {
       // Create user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
-        auth, 
-        formData.email, 
+        auth,
+        formData.email,
         formData.password
       );
 
       // Create user profile in Firestore
       const userDocRef = doc(
-        db, 
-        userType === "hospital" ? "hospitals" : "parents", 
+        firestore,
+        userType === "hospital" ? "hospitals" : "parents",
         userCredential.user.uid
       );
-      
+
       const userData = {
         email: formData.email,
-        createdAt: new Date(),
-        role: userType
+        createdAt: serverTimestamp(),
+        role: userType,
       };
-      
+
       // Add user-specific fields
       if (userType === "hospital") {
         userData.name = formData.hospitalName;
@@ -109,13 +110,26 @@ const UnifiedSignup = () => {
         userData.address = formData.address;
       }
 
-      await setDoc(userDocRef, userData);
+      try {
+        setLoading(false);
+        navigate("/doctor-dashboard");
+        await setDoc(userDocRef, userData);
+        console.log("Signup successful");
+      } catch (setDocError) {
+        console.log("setDoc Error: ", setDocError);
+        setError(setDocError.message);
+        setLoading(false);
+        return;
+      }
 
-      alert(`Registration successful! Welcome ${userType === "hospital" ? "Hospital" : "Parent"}`);
-      navigate("/dashboard");
+      alert(
+        `Registration successful! Welcome ${
+          userType === "hospital" ? "Hospital" : "Parent"
+        }`
+      );
     } catch (error) {
       setError(error.message);
-    } finally {
+      console.log("Signup Error: ", error);
       setLoading(false);
     }
   };
@@ -132,11 +146,13 @@ const UnifiedSignup = () => {
           {/* Header */}
           <div className="bg-blue-600 py-6 px-8 text-center">
             <h1 className="text-2xl font-bold text-white">
-              {userType === "hospital" ? "Hospital Registration" : "Parent Registration"}
+              {userType === "hospital"
+                ? "Hospital Registration"
+                : "Parent Registration"}
             </h1>
             <p className="text-blue-100 mt-1">
-              {userType === "hospital" 
-                ? "Register your healthcare facility" 
+              {userType === "hospital"
+                ? "Register your healthcare facility"
                 : "Create your parent account"}
             </p>
           </div>
@@ -372,7 +388,9 @@ const UnifiedSignup = () => {
                     <button
                       type="button"
                       className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                     >
                       {showConfirmPassword ? (
                         <FaEyeSlash className="text-gray-400 hover:text-gray-600" />
@@ -392,9 +410,15 @@ const UnifiedSignup = () => {
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   required
                 />
-                <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
+                <label
+                  htmlFor="terms"
+                  className="ml-2 block text-sm text-gray-700"
+                >
                   I agree to the{" "}
-                  <Link to="/terms" className="font-medium text-blue-600 hover:text-blue-500">
+                  <Link
+                    to="/terms"
+                    className="font-medium text-blue-600 hover:text-blue-500"
+                  >
                     Terms & Conditions
                   </Link>
                 </label>
@@ -404,13 +428,18 @@ const UnifiedSignup = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                className={`w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+                  loading ? "opacity-70 cursor-not-allowed" : ""
+                }`}
               >
                 {loading ? (
-                  `Registering ${userType === "hospital" ? "Hospital" : "Parent"}...`
+                  `Registering ${
+                    userType === "hospital" ? "Hospital" : "Parent"
+                  }...`
                 ) : (
                   <>
-                    Create {userType === "hospital" ? "Hospital" : "Parent"} Account 
+                    Create {userType === "hospital" ? "Hospital" : "Parent"}{" "}
+                    Account
                     <FaArrowRight className="ml-2" />
                   </>
                 )}
@@ -420,8 +449,11 @@ const UnifiedSignup = () => {
             {/* Login Link */}
             <div className="mt-6 text-center text-sm">
               <p className="text-gray-600">
-                Already registered?{' '}
-                <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
+                Already registered?{" "}
+                <Link
+                  to="/login"
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
                   Sign In
                 </Link>
               </p>
