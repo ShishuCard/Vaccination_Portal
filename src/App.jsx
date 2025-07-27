@@ -9,6 +9,9 @@ import AboutUS from "./components/aboutUs";
 import Signup from "./components/signup";
 import GetStarted from "./components/vaccinationPage";
 import ContactUs from "./components/contactUs";
+import PrivacyPolicy from "./components/privacy";
+import CookiePolicy from "./components/cookies";   
+import TermsOfUse from "./components/terms";
 import DoctorDashboard from "./components/DoctorDashboard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
@@ -69,7 +72,9 @@ const App = () => {
           <Route path="/schemes/mission-indradhanush" element={<MissionIndradhanush />} />
           <Route path="/schemes/universal-immunization" element={<UniversalImmunization />} />
           <Route path="/schemes/pmjay" element={<PMJAYScheme />} />
-
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/cookies" element={<CookiePolicy />} />
+          <Route path="/terms" element={<TermsOfUse />} />
           <Route
             path="/login"
             element={loading ? (
