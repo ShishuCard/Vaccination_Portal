@@ -3,6 +3,7 @@ import printJS from 'print-js';
 import { FaFilePdf, FaUser, FaCalendarAlt, FaVenusMars, FaMapMarkerAlt, FaHospital, FaUserMd, FaPhone, FaCheck } from 'react-icons/fa';
 import logo from '../assets/Logo.png';
 import defaultProfile from '../assets/3.jpg';
+import VaccineReminder from './VaccinationReminder';
 
 // Vaccine schedule with specific ages
 const vaccineSchedule = {
@@ -206,6 +207,7 @@ export default function ChildProfile({ data }) {
             </div>
           </div>
         </section>
+      <VaccineReminder/>
 
         {/* Vaccination Progress */}
         <div className="bg-blue-50 rounded-lg p-4 mb-8">
