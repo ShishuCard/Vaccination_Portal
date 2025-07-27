@@ -29,6 +29,23 @@ const testimonials = [
 const Testimonial = () => {
   const navigate = useNavigate(); // ✅ This line was missing
 
+  const handleSignupClick = () => {
+    // Add slide-down animation effect
+    const button = document.querySelector('.signup-btn');
+    if (button) {
+      button.style.transform = 'translateY(4px) scale(0.98)';
+      button.style.boxShadow = 'inset 0 2px 4px rgba(0, 0, 0, 0.1)';
+      
+      setTimeout(() => {
+        button.style.transform = '';
+        button.style.boxShadow = '';
+        navigate("/signup");
+      }, 200);
+    } else {
+      navigate("/signup");
+    }
+  };
+
   return (
     <div className="bg-blue-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -91,11 +108,11 @@ const Testimonial = () => {
           </p>
           <button
             type="button"
-            onClick={() => navigate("/signup")} // ✅ This works now
-            className="inline-flex items-center px-4 py-2 border border-blue-600 text-sm font-medium rounded text-blue-600 hover:bg-blue-50 transition-colors"
+            onClick={handleSignupClick}
+            className="signup-btn inline-flex items-center px-4 py-2 border border-blue-600 text-sm font-medium rounded text-blue-600 hover:bg-blue-600 hover:text-white hover:border-blue-700 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
           >
             Create your account
-            <svg className="ml-2 w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="ml-2 w-3 h-3 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
             </svg>
           </button>
