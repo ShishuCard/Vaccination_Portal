@@ -12,7 +12,7 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@studio-freight/lenis": "^1.0.42",
-    "@tailwindcss/vite": "^4.1.10",
+    "@tailwindcss/vite": "^4.1.11",
     "autoprefixer": "^10.4.21",
     "emailjs-com": "^3.2.0",
     "firebase": "^11.10.0",

@@ -53,11 +53,11 @@ const AboutUs = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       {/* Header Section */}
       <div className="text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-900 mb-4">
-          Meet Our <span className="text-blue-600">Team</span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-900 dark:text-blue-200 mb-4">
+          Meet Our <span className="text-blue-600 dark:text-blue-400">Team</span>
         </h2>
-        <div className="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
-        <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+        <div className="w-20 h-1 bg-blue-500 dark:bg-blue-400 mx-auto mb-6"></div>
+        <p className="text-gray-600 dark:text-gray-300 text-lg max-w-3xl mx-auto">
           Behind ShishuCard is a passionate team of developers and designers dedicated to improving child healthcare accessibility through technology.
         </p>
       </div>
@@ -67,7 +67,7 @@ const AboutUs = () => {
         {teamMembers.map((member, index) => (
           <div
             key={index}
-            className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
           >
             <div className="relative">
               <img
@@ -75,31 +75,31 @@ const AboutUs = () => {
                 alt={member.name}
                 className="w-full h-64 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 dark:from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                 <div className="flex space-x-3">
-                  <a href={member.social.linkedin} className="text-white hover:text-blue-300 transition">
+                  <a href={member.social.linkedin} className="text-white hover:text-blue-300 dark:hover:text-blue-400 transition">
                     <FaLinkedin className="w-5 h-5" />
                   </a>
-                  <a href={member.social.github} className="text-white hover:text-blue-300 transition">
+                  <a href={member.social.github} className="text-white hover:text-blue-300 dark:hover:text-blue-400 transition">
                     <FaGithub className="w-5 h-5" />
                   </a>
-                  <a href={member.social.twitter} className="text-white hover:text-blue-300 transition">
+                  <a href={member.social.twitter} className="text-white hover:text-blue-300 dark:hover:text-blue-400 transition">
                     <FaTwitter className="w-5 h-5" />
                   </a>
                 </div>
               </div>
             </div>
             <div className="p-6 text-center">
-              <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
-              <p className="text-blue-600 font-medium">{member.role}</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{member.name}</h3>
+              <p className="text-blue-600 dark:text-blue-400 font-medium">{member.role}</p>
               <div className="mt-4 flex justify-center space-x-3">
-                <a href={member.social.linkedin} className="text-gray-400 hover:text-blue-600 transition">
+                <a href={member.social.linkedin} className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition">
                   <FaLinkedin className="w-4 h-4" />
                 </a>
-                <a href={member.social.github} className="text-gray-400 hover:text-blue-600 transition">
+                <a href={member.social.github} className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition">
                   <FaGithub className="w-4 h-4" />
                 </a>
-                <a href={member.social.twitter} className="text-gray-400 hover:text-blue-600 transition">
+                <a href={member.social.twitter} className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition">
                   <FaTwitter className="w-4 h-4" />
                 </a>
               </div>
@@ -112,11 +112,11 @@ const AboutUs = () => {
       <div className="mt-20 mb-16">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
+            <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
           </div>
           <div className="relative flex justify-center">
-            <span className="bg-white px-4 text-gray-500">
-              <svg className="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <span className="bg-white dark:bg-gray-900 px-4 text-gray-500 dark:text-gray-300">
+              <svg className="w-8 h-8 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
               </svg>
             </span>
@@ -126,8 +126,8 @@ const AboutUs = () => {
 
       {/* Mission Section */}
       <div className="max-w-4xl mx-auto text-center">
-        <h3 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6">Our Mission</h3>
-        <p className="text-gray-600 text-lg leading-relaxed">
+        <h3 className="text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-200 mb-6">Our Mission</h3>
+        <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
           At ShishuCard, we're revolutionizing child healthcare by creating digital solutions that make vaccination tracking accessible to all families.
           Our platform bridges the gap between healthcare providers and communities, ensuring no child misses their vital immunizations.
         </p>
