@@ -12,8 +12,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 
 const Footer = () => {
-  const notify = () =>
-    toast.success("Successfully Subscribed");
+  const notify = () => toast.success("Successfully Subscribed");
   return (
     <footer className="bg-blue-950 text-white pt-12 pb-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -28,18 +27,41 @@ const Footer = () => {
               Empowering child healthcare through innovative digital solutions
               that keep vaccination records secure and accessible.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-blue-200 hover:text-white transition">
-                <FaFacebook className="w-5 h-5" />
+            <div className="flex space-x-0.1">
+              {/* Facebook */}
+              <a
+                href="#"
+                className="group relative px-2.5 py-2 rounded-full bg-transparent focus:outline-none transition"
+              >
+                <div className="absolute inset-0 rounded-full bg-blue-600/30 backdrop-blur-md opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                <FaFacebook className="relative z-10 w-5 h-5 text-blue-200 group-hover:text-white group-hover:scale-110 transition duration-300" />
               </a>
-              <a href="#" className="text-blue-200 hover:text-white transition">
-                <FaTwitter className="w-5 h-5" />
+
+              {/* Twitter */}
+              <a
+                href="#"
+                className="group relative px-2.5 py-2 rounded-full bg-transparent focus:outline-none transition"
+              >
+                <div className="absolute inset-0 rounded-full bg-blue-600/30 backdrop-blur-md opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                <FaTwitter className="relative z-10 w-5 h-5 text-blue-200 group-hover:text-white group-hover:scale-110 transition duration-300" />
               </a>
-              <a href="#" className="text-blue-200 hover:text-white transition">
-                <FaLinkedin className="w-5 h-5" />
+
+              {/* LinkedIn */}
+              <a
+                href="#"
+                className="group relative px-2.5 py-2 rounded-full bg-transparent focus:outline-none transition"
+              >
+                <div className="absolute inset-0 rounded-full bg-blue-600/30 backdrop-blur-md opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                <FaLinkedin className="relative z-10 w-5 h-5 text-blue-200 group-hover:text-white group-hover:scale-110 transition duration-300" />
               </a>
-              <a href="#" className="text-blue-200 hover:text-white transition">
-                <FaInstagram className="w-5 h-5" />
+
+              {/* Instagram */}
+              <a
+                href="#"
+                className="group relative px-2.5 py-2 rounded-full bg-transparent focus:outline-none transition"
+              >
+                <div className="absolute inset-0 rounded-full bg-blue-600/30 backdrop-blur-md opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                <FaInstagram className="relative z-10 w-5 h-5 text-blue-200 group-hover:text-white group-hover:scale-110 transition duration-300" />
               </a>
             </div>
           </div>
