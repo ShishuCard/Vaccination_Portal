@@ -24,6 +24,8 @@ import UniversalImmunization from "./components/schemes/UniversalImmunization";
 import PMJAYScheme from "./components/schemes/PMJAYScheme";
 import useLenis from "./components/useLenis";// Custom hook for smooth scrolling
 import { useEffect, useState } from "react";
+import Fts  from "./components/Fts";
+
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -85,6 +87,7 @@ const App = () => {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<CookiePolicy />} />
           <Route path="/terms" element={<TermsOfUse />} />
+          <Route path="/features" element={<Fts />} />
           <Route
             path="/login"
             element={loading ? (
