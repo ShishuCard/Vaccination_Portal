@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { FaUser, FaLock, FaArrowRight, FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,10 +17,15 @@ const Login = () => {
     setLoading(true);
 
     try {
+      if(!email || !password){
+        toast.error("Please fill in all fields.");
+        return;
+      }
       await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Login successful!");
       navigate("/doctor-dashboard");
     } catch (error) {
-      alert("Login failed: " + error.message);
+      toast.error("Login failed, please try again.");
       console.error("Login Error:", error);
     } finally {
       setLoading(false);
@@ -117,7 +123,7 @@ const Login = () => {
                 className={`w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 {loading ? (
-                  'Loging in...'
+                  'Logging in...'
                 ) : (
                   <>
                     Log In <FaArrowRight className="ml-2" />
