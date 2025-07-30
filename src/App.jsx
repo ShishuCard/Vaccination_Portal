@@ -25,7 +25,7 @@ import PMJAYScheme from "./components/schemes/PMJAYScheme";
 import useLenis from "./components/useLenis";// Custom hook for smooth scrolling
 import { useEffect, useState } from "react";
 import Fts  from "./components/Fts";
-
+import {ToastContainer} from 'react-toastify';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -105,7 +105,14 @@ const App = () => {
           />
         </Routes>
         <Footer />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover />
       </div>
+      
     </Router>
   );
 };

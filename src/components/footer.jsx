@@ -9,10 +9,13 @@ import {
   FaLinkedin,
   FaInstagram,
 } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 
 const Footer = () => {
-  const notify = () => toast.success("Successfully Subscribed");
+  const notify = (e) => {
+    e.preventDefault();
+    toast.success("Successfully Subscribed");
+  };
   return (
     <footer className="bg-blue-950 text-white pt-12 pb-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -88,7 +91,7 @@ const Footer = () => {
                   About Us
                 </Link>
               </li>
-                             <li>
+                <li>
                 <Link
                   to="/features"
                   className="text-blue-100 hover:text-white transition flex items-start"
@@ -162,18 +165,7 @@ const Footer = () => {
               >
                 Subscribe
               </button>
-              <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable={false}
-                pauseOnHover
-                theme="light"
-              />
+              
             </form>
           </div>
         </div>
