@@ -53,7 +53,7 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-20 bg-white rounded">
+    <div className="w-[100%] px-6 py-20 bg-white rounded">
       {/* Header Section */}
       <div className="text-center mb-20">
         <h2 className="text-4xl font-light text-gray-900 mb-3">
