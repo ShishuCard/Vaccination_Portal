@@ -4,6 +4,7 @@ import { FaFilePdf, FaUser, FaCalendarAlt, FaVenusMars, FaMapMarkerAlt, FaHospit
 import logo from '../assets/Logo.png';
 import defaultProfile from '../assets/3.jpg';
 import VaccineReminder from './VaccinationReminder';
+// import React, { useRef, useEffect } from 'react';
 
 // Vaccine schedule with specific ages
 const vaccineSchedule = {

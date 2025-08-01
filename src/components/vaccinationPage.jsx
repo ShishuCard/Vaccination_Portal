@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+// import React, {useState } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import QRCode from "react-qr-code";
 import { db } from "../firebase";
 import { ref, set } from "firebase/database";
 import sendEmail from "../utils/email";
+
+
+
 
 const GradientBG = ({ children }) => (
   <div className="relative min-h-screen py-8 flex items-center justify-center">
@@ -657,6 +662,17 @@ const GetStarted = () => {
   const [qrValue, setQrValue] = useState("");
   const [childId, setChildId] = useState("");
 
+
+  //qr view-code
+ const qrRef = useRef(null); 
+  
+useEffect(() => {
+  if (qrValue && qrRef.current) {
+    qrRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+}, [qrValue])
+
+
   const handleNext = () => {
     setStep(2);
   };
@@ -673,6 +689,9 @@ const GetStarted = () => {
       vaccinations,
       childId,
     };
+
+
+
 
     // ✅ Save to Firebase Realtime db
     set(ref(db, "children/" + childId), data)
@@ -712,8 +731,10 @@ const GetStarted = () => {
           />
         )}
 
-        {qrValue && (
-          <div className="max-w-3xl mx-auto mt-10 p-6 bg-blue-50 rounded-2xl text-center shadow-lg border border-blue-200">
+          {qrValue && ( 
+
+          <div ref={qrRef}
+          className="max-w-3xl mx-auto mt-10 p-6 bg-blue-50 rounded-2xl text-center shadow-lg border border-blue-200">
             <h3 className="text-2xl font-semibold mb-4 text-blue-950">
               Generated QR Code
             </h3>
@@ -724,10 +745,15 @@ const GetStarted = () => {
               <strong>Child ID:</strong> {childId}
             </p>
           </div>
+          
         )}
       </div>
     </GradientBG>
   );
-};
+};  
+
+
 
 export default GetStarted;
+// export default VaccinationPage;
+
