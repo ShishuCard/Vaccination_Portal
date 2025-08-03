@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import LoginButton from "./functionalButtons/LoginButton";
 import LogoutButton from "./functionalButtons/LogoutButton";
+import Clock from "./clock";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -52,9 +53,14 @@ const Navbar = () => {
             >
               Contact
             </Link>
+            
+
             <div className="ml-2">
               {user ? <LogoutButton /> : <LoginButton />}
             </div>
+            <div className="text-white px-1 py-1 rounded-md text-sm font-medium bg-blue-600">
+  <Clock />
+</div>
           </div>
 
           {/* Mobile menu button */}
@@ -110,9 +116,14 @@ const Navbar = () => {
           >
             Contact
           </Link>
-          <div className="px-3 py-2">
-            {user ? <LogoutButton mobile /> : <LoginButton mobile />}
-          </div>
+          <div className="px-3 py-2 space-y-3">
+  <div className="text-white text-xs sm:text-sm md:text-base bg-blue-600 px-3 py-1 rounded-md w-fit">
+  <Clock />
+</div>
+
+  {user ? <LogoutButton mobile /> : <LoginButton mobile />}
+</div>
+
         </div>
       </div>
     </nav>
