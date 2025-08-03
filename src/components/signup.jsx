@@ -160,9 +160,9 @@ const UnifiedSignup = () => {
   };
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100">
-      {/* Decorative elements */}
+      {/* Decorative elements
       <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div>
+      <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div> */}
 
       <div className="w-full max-w-md">
         {/* Card */}
