@@ -38,16 +38,16 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState( "light");
   useLenis();
   const [user, loading] = useAuthState(auth);
 
   // Toggle dark class on body for Tailwind v4 dark mode
   useEffect(() => {
     if (theme === "dark") {
-      document.body.classList.add("dark");
+      document.documentElement.classList.add("dark");
     } else {
-      document.body.classList.remove("dark");
+      document.documentElement.classList.remove("dark");
     }
   }, [theme]);
 
