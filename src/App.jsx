@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate,useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Services from "./components/services";
@@ -10,7 +10,7 @@ import Signup from "./components/signup";
 import GetStarted from "./components/vaccinationPage";
 import ContactUs from "./components/contactUs";
 import PrivacyPolicy from "./components/privacy";
-import CookiePolicy from "./components/cookies";   
+import CookiePolicy from "./components/cookies";
 import TermsOfUse from "./components/terms";
 import DoctorDashboard from "./components/DoctorDashboard";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -23,8 +23,9 @@ import MissionIndradhanush from "./components/schemes/MissionIndradhanush";
 import UniversalImmunization from "./components/schemes/UniversalImmunization";
 import PMJAYScheme from "./components/schemes/PMJAYScheme";
 import useLenis from "./components/useLenis";// Custom hook for smooth scrolling
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import Fts  from "./components/Fts";
+import {ToastContainer} from 'react-toastify';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -36,19 +37,30 @@ const ScrollToTop = () => {
   return null;
 };
 
-
 const App = () => {
-
+  const [theme, setTheme] = useState( "light");
+  useLenis();
   const [user, loading] = useAuthState(auth);
-  console.log(user)
 
-  useLenis(); // Initialize Lenis for smooth scrolling
+  // Toggle dark class on body for Tailwind v4 dark mode
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
 
   return (
     <Router>
-       <ScrollToTop />
-      <div>
-        <Navbar />
+      <ScrollToTop />
+      {/* No need for custom theme classes, just use Tailwind's dark mode */}
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
+        <Navbar toggleTheme={toggleTheme} theme={theme} />
         <Routes>
           <Route path="/child/:id" element={<ChildPage />} />
           <Route
@@ -75,6 +87,7 @@ const App = () => {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<CookiePolicy />} />
           <Route path="/terms" element={<TermsOfUse />} />
+          <Route path="/features" element={<Fts />} />
           <Route
             path="/login"
             element={loading ? (
@@ -92,7 +105,14 @@ const App = () => {
           />
         </Routes>
         <Footer />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover />
       </div>
+      
     </Router>
   );
 };

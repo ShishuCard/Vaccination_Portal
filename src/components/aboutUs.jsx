@@ -1,136 +1,167 @@
 import React from "react";
-import Ankit from "../assets/Ankit.png"
-import Image1 from "../assets/image1.jpg"
-import Image2 from "../assets/image2.jpg"
-import Image3 from "../assets/image3.jpg"
-import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
-
+import { Linkedin, Github, Twitter, Heart } from "lucide-react";
+import ankit from "../assets/Ankit.png"; // Assuming you have an image for Ankit
+import shreya from "../assets/image2.jpg"
+import sayak from "../assets/image1.jpg"; // Placeholder for Sayak's image
+import somhrita from "../assets/image3.jpg";
 const AboutUs = () => {
   const teamMembers = [
     {
       name: "Ankit",
       role: "Backend Developer",
-      image: Ankit,
+      image: ankit,
       social: {
         linkedin: "#",
         github: "#",
         twitter: "#"
-      }
+      },
+      line: "Builds worlds behind screens"
     },
     {
       name: "Sayak",
       role: "Frontend Developer",
-      image: Image1,
+      image: sayak,
       social: {
         linkedin: "#",
         github: "#",
         twitter: "#"
-      }
+      },
+      line: "Paints pixels with purpose"
     },
     {
       name: "Somhrita",
       role: "Design Lead",
-      image: Image3,
+      image: somhrita,
       social: {
         linkedin: "#",
         github: "#",
         twitter: "#"
-      }
+      },
+      line: "Designs with fierce grace"
     },
     {
       name: "Shreya",
       role: "Frontend Developer",
-      image: Image2,
+      image: shreya,
       social: {
         linkedin: "#",
         github: "#",
         twitter: "#"
-      }
+      },
+      line: "Paints pixels with purpose"
     },
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="w-[100%] px-6 py-20 bg-white rounded">
       {/* Header Section */}
-      <div className="text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-900 mb-4">
-          Meet Our <span className="text-blue-600">Team</span>
+      <div className="text-center mb-20">
+        <h2 className="text-4xl font-light text-gray-900 mb-3">
+          Meet Our Team
         </h2>
-        <div className="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
-        <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-          Behind ShishuCard is a passionate team of developers and designers dedicated to improving child healthcare accessibility through technology.
+        <div className="w-12 h-px bg-gray-300 mx-auto mb-8"></div>
+        <p className="text-gray-600 text-lg font-light max-w-2xl mx-auto leading-relaxed">
+          A passionate team dedicated to improving child healthcare accessibility through thoughtful technology solutions.
         </p>
       </div>
 
       {/* Team Members */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
         {teamMembers.map((member, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
-          >
-            <div className="relative">
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-64 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <div className="flex space-x-3">
-                  <a href={member.social.linkedin} className="text-white hover:text-blue-300 transition">
-                    <FaLinkedin className="w-5 h-5" />
+          <div key={index} className="relative group cursor-pointer">
+            {/* Card */}
+            <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300">
+              {/* Social Links - Top Right Corner */}
+              <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                <div className="flex flex-col space-y-2">
+                  <a 
+                    href={member.social.linkedin} 
+                    className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
+                  >
+                    <Linkedin className="w-4 h-4" />
                   </a>
-                  <a href={member.social.github} className="text-white hover:text-blue-300 transition">
-                    <FaGithub className="w-5 h-5" />
+                  <a 
+                    href={member.social.github} 
+                    className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:scale-110 hover:-rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
+                  >
+                    <Github className="w-4 h-4" />
                   </a>
-                  <a href={member.social.twitter} className="text-white hover:text-blue-300 transition">
-                    <FaTwitter className="w-5 h-5" />
+                  <a 
+                    href={member.social.twitter} 
+                    className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-cyan-600 hover:bg-cyan-50 hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
+                  >
+                    <Twitter className="w-4 h-4" />
                   </a>
                 </div>
               </div>
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
-              <p className="text-blue-600 font-medium">{member.role}</p>
-              <div className="mt-4 flex justify-center space-x-3">
-                <a href={member.social.linkedin} className="text-gray-400 hover:text-blue-600 transition">
-                  <FaLinkedin className="w-4 h-4" />
-                </a>
-                <a href={member.social.github} className="text-gray-400 hover:text-blue-600 transition">
-                  <FaGithub className="w-4 h-4" />
-                </a>
-                <a href={member.social.twitter} className="text-gray-400 hover:text-blue-600 transition">
-                  <FaTwitter className="w-4 h-4" />
-                </a>
+
+              {/* Profile Image */}
+              <div className="relative aspect-square overflow-hidden">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                
+                {/* Position Overlay - Fades in below image */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 p-4">
+                  <p className="text-white text-xs font-light opacity-75">{member.line}</p>
+                </div>
+              </div>
+
+              {/* Member Info */}
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-1">
+                  {member.name}
+                </h3>
+                <p className="text-gray-500 text-sm font-light">{member.role}</p>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Divider */}
-      <div className="mt-20 mb-16">
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
+     
+
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <h3 className="text-2xl font-light text-gray-900 mb-6">Our Mission</h3>
+           <div className="w-12 h-px bg-gray-300 mx-auto mb-8"></div>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          {/* Card 1 - Accessibility */}
+          <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:border-blue-300 transition-all duration-300">
+            <h4 className="text-lg font-medium text-gray-900 mb-3">
+              Accessibility First
+            </h4>
+            <p className="text-gray-600 text-sm">
+              Making healthcare technology available to every community, everywhere.
+            </p>
           </div>
-          <div className="relative flex justify-center">
-            <span className="bg-white px-4 text-gray-500">
-              <svg className="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-              </svg>
-            </span>
+
+          {/* Card 2 - Innovation */}
+          <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:border-purple-300 transition-all duration-300">
+            <h4 className="text-lg font-medium text-gray-900 mb-3">
+              Innovation Hub
+            </h4>
+            <p className="text-gray-600 text-sm">
+              Bridging gaps between healthcare providers and families through technology.
+            </p>
+          </div>
+
+          {/* Card 3 - Impact */}
+          <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:border-green-300 transition-all duration-300">
+            <h4 className="text-lg font-medium text-gray-900 mb-3">
+              Real Impact
+            </h4>
+            <p className="text-gray-600 text-sm">
+              Ensuring no child misses vital immunizations that protect their future.
+            </p>
           </div>
         </div>
-      </div>
 
-      {/* Mission Section */}
-      <div className="max-w-4xl mx-auto text-center">
-        <h3 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6">Our Mission</h3>
-        <p className="text-gray-600 text-lg leading-relaxed">
-          At ShishuCard, we're revolutionizing child healthcare by creating digital solutions that make vaccination tracking accessible to all families.
-          Our platform bridges the gap between healthcare providers and communities, ensuring no child misses their vital immunizations.
-        </p>
+       
       </div>
     </div>
   );

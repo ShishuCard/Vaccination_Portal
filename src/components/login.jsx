@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { FaUser, FaLock, FaArrowRight, FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,10 +17,15 @@ const Login = () => {
     setLoading(true);
 
     try {
+      if(!email || !password){
+        toast.error("Please fill in all fields.");
+        return;
+      }
       await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Login successful!");
       navigate("/doctor-dashboard");
     } catch (error) {
-      alert("Login failed: " + error.message);
+      toast.error("Login failed, please try again.");
       console.error("Login Error:", error);
     } finally {
       setLoading(false);
@@ -29,8 +35,8 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100">
       {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div>
+      {/* <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
+      <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div> */}
 
       <div className="w-full max-w-md">
         {/* Card */}
@@ -78,7 +84,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full text-black pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
                   {/* Password visibility toggle button */}
@@ -117,7 +123,7 @@ const Login = () => {
                 className={`w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 {loading ? (
-                  'Loging in...'
+                  'Logging in...'
                 ) : (
                   <>
                     Log In <FaArrowRight className="ml-2" />

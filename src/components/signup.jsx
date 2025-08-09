@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, firestore } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-
 import {
   FaUser,
   FaLock,
@@ -16,6 +15,7 @@ import {
   FaPhone,
   FaHome,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const UnifiedSignup = () => {
   const [userType, setUserType] = useState("hospital"); // 'hospital' or 'parent'
@@ -50,35 +50,63 @@ const UnifiedSignup = () => {
     e.preventDefault();
     setError("");
 
-    // Password validation
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords don't match");
-      return;
-    }
-    if (formData.password.length < 8) {
-      setError("Password must be at least 8 characters");
-      return;
-    }
-
-    // User-specific validation
+   
     if (userType === "hospital") {
       if (!formData.hospitalName.trim()) {
         setError("Hospital name is required");
+        toast.error("Hospital name is required");
         return;
       }
       if (!formData.licenseNumber.trim()) {
         setError("License number is required");
+        toast.error("License number is required");
+        return;
+      }
+      if (!formData.email.trim() || !formData.password.trim() || !formData.confirmPassword.trim()) {
+        toast.error("All fields are required");
+        return;
+      }
+      if(formData.password.length < 8) {
+        toast.error("Password must be at least 8 characters");
+        return;
+      }
+      if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        toast.error("Invalid email format");
         return;
       }
     } else {
       if (!formData.fullName.trim()) {
         setError("Full name is required");
+        toast.error("Full name is required");
+        return;
+      }
+      if (!formData.password.trim() || !formData.confirmPassword.trim()) {
+        toast.error("All fields are required");
+        return;
+      }
+      if (formData.password.length < 8) {
+        toast.error("Password must be at least 8 characters");
+        return;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        toast.error("Passwords don't match");
+        return;
+      }
+      if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        toast.error("Invalid email format");
+        return;
+      }
+      if(!formData.phone.trim()){
+        toast.error("Phone number is required");
+        return;
+      }
+      if(formData.phone.length < 10){
+        toast.error("Phone number must be at least 10 digits");
         return;
       }
     }
 
-    setLoading(true);
-    console.log("outside of try");
+    setLoading(true); 
     try {
       // Create user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
@@ -86,7 +114,7 @@ const UnifiedSignup = () => {
         formData.email,
         formData.password
       );
-
+     
       // Create user profile in Firestore
       const userDocRef = doc(
         firestore,
@@ -109,7 +137,9 @@ const UnifiedSignup = () => {
         userData.phone = formData.phone;
         userData.address = formData.address;
       }
-
+      toast.success(`Registration successful! Welcome ${
+        userType === "hospital" ? "Hospital" : "Parent"
+      }`);
       try {
         setLoading(false);
         navigate("/doctor-dashboard");
@@ -121,24 +151,18 @@ const UnifiedSignup = () => {
         setLoading(false);
         return;
       }
-
-      alert(
-        `Registration successful! Welcome ${
-          userType === "hospital" ? "Hospital" : "Parent"
-        }`
-      );
     } catch (error) {
       setError(error.message);
+      toast.error("Signup failed, please try again.");
       console.log("Signup Error: ", error);
       setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100">
-      {/* Decorative elements */}
+      {/* Decorative elements
       <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div>
+      <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div> */}
 
       <div className="w-full max-w-md">
         {/* Card */}
@@ -212,7 +236,7 @@ const UnifiedSignup = () => {
                         value={formData.hospitalName}
                         onChange={handleChange}
                         placeholder="Hospital Name"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black focus:border-transparent"
                         required
                       />
                     </div>
@@ -233,7 +257,7 @@ const UnifiedSignup = () => {
                         value={formData.licenseNumber}
                         onChange={handleChange}
                         placeholder="License Number"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                         required
                       />
                     </div>
@@ -256,7 +280,7 @@ const UnifiedSignup = () => {
                         value={formData.fullName}
                         onChange={handleChange}
                         placeholder="Your Full Name"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                         required
                       />
                     </div>
@@ -279,7 +303,8 @@ const UnifiedSignup = () => {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="Phone Number"
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+                          required
                         />
                       </div>
                     </div>
@@ -299,7 +324,7 @@ const UnifiedSignup = () => {
                           value={formData.address}
                           onChange={handleChange}
                           placeholder="Your Address"
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                         />
                       </div>
                     </div>
@@ -323,7 +348,7 @@ const UnifiedSignup = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                     required
                   />
                 </div>
@@ -346,7 +371,7 @@ const UnifiedSignup = () => {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                       required
                       minLength="8"
                     />
@@ -380,7 +405,7 @@ const UnifiedSignup = () => {
                       value={formData.confirmPassword}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                       required
                       minLength="8"
                     />
