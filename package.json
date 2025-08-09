@@ -18,12 +18,12 @@
     "emailjs-com": "^3.2.0",
     "express": "^5.1.0",
     "firebase": "^11.10.0",
-HEAD
+
     "framer-motion": "^12.23.9",
     "jsonwebtoken": "^9.0.2",
     "framer-motion": "^12.23.12",
     "jspdf": "^3.0.1",
-upstream/main
+
     "lucide-react": "^0.526.0",
     "postcss": "^8.5.6",
     "print-js": "^1.6.0",
