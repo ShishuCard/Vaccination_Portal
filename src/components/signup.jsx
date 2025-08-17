@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTheme } from '../context/ThemeContext';
 import { Link, useNavigate } from "react-router-dom";
 import { auth, firestore } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -18,6 +19,7 @@ import {
 import { toast } from "react-toastify";
 
 const UnifiedSignup = () => {
+  const { theme } = useTheme();
   const [userType, setUserType] = useState("hospital"); // 'hospital' or 'parent'
   const [formData, setFormData] = useState({
     // Common fields
@@ -159,22 +161,22 @@ const UnifiedSignup = () => {
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100">
+  <div className={`min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 ${theme === 'dark' ? 'dark' : ''}`}>
       {/* Decorative elements */}
       <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
       <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div>
 
       <div className="w-full max-w-md">
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
           {/* Header */}
-          <div className="bg-blue-600 py-6 px-8 text-center">
-            <h1 className="text-2xl font-bold text-white">
+          <div className="bg-blue-600 dark:bg-blue-900 py-6 px-8 text-center">
+            <h1 className="text-2xl font-bold text-white dark:text-blue-200">
               {userType === "hospital"
                 ? "Hospital Registration"
                 : "Parent Registration"}
             </h1>
-            <p className="text-blue-100 mt-1">
+            <p className="text-blue-100 dark:text-blue-300 mt-1">
               {userType === "hospital"
                 ? "Register your healthcare facility"
                 : "Create your parent account"}
@@ -189,8 +191,8 @@ const UnifiedSignup = () => {
                 onClick={() => setUserType("hospital")}
                 className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
                   userType === "hospital"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "bg-blue-600 dark:bg-blue-900 text-white dark:text-blue-200"
+                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
               >
                 Hospital
@@ -200,8 +202,8 @@ const UnifiedSignup = () => {
                 onClick={() => setUserType("parent")}
                 className={`px-4 py-2 text-sm font-medium rounded-r-lg ${
                   userType === "parent"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "bg-blue-600 dark:bg-blue-900 text-white dark:text-blue-200"
+                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
               >
                 Parent

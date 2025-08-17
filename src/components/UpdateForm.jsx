@@ -32,13 +32,13 @@ const VaccineModal = ({ isOpen, onClose, onSubmit, childData }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col">
         {/* Modal Header */}
-        <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-blue-50 rounded-t-xl">
+        <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700 bg-blue-50 dark:bg-gray-800 rounded-t-xl">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">Vaccination Management</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Vaccination Management</h2>
             {childData && (
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                 For: {childData.childName} (ID: {childData.childId})
               </p>
             )}
@@ -46,7 +46,7 @@ const VaccineModal = ({ isOpen, onClose, onSubmit, childData }) => {
           <div className="flex space-x-3">
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-700 transition p-2"
+              className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white transition p-2"
             >
               <FaTimes size={20} />
             </button>
@@ -56,9 +56,9 @@ const VaccineModal = ({ isOpen, onClose, onSubmit, childData }) => {
         {/* Modal Body */}
         <div className="flex-1 overflow-y-auto p-6">
           <form onSubmit={handleSubmit}>
-            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-100">
+            <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead className="bg-gray-100 dark:bg-gray-800">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                       Vaccine
@@ -74,9 +74,9 @@ const VaccineModal = ({ isOpen, onClose, onSubmit, childData }) => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                   {selectedVaccines.map((vaccine, index) => (
-                    <tr key={index} className="hover:bg-blue-50 transition">
+                    <tr key={index} className="hover:bg-blue-50 dark:hover:bg-gray-800 transition">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">{vaccine.name}</div>
                         <div className="text-xs text-gray-500">{vaccine.description || "Essential immunization"}</div>

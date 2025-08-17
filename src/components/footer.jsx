@@ -17,7 +17,7 @@ const Footer = () => {
     toast.success("Successfully Subscribed");
   };
   return (
-    <footer className="bg-blue-950 text-white pt-12 pb-6 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-blue-950 dark:bg-gray-900 text-white dark:text-gray-100 pt-12 pb-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 mb-8">

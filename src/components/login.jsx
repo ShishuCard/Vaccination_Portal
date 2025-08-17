@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTheme } from '../context/ThemeContext';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { FaUser, FaLock, FaArrowRight, FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const { theme } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,14 +35,18 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100">
+  <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100">
+    {/* Debug: Show current theme and <html> classList */}
+    <div style={{position: 'fixed', top: 0, left: 0, zIndex: 9999, background: '#fff', color: '#333', padding: '4px 8px', fontSize: '12px', borderBottomRightRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)'}}>
+      Theme: {theme} | html.classList: {typeof document !== 'undefined' ? document.documentElement.classList.value : ''}
+    </div>
       {/* Decorative elements */}
       <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
       <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div>
 
       <div className="w-full max-w-md">
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
           {/* Header */}
           <div className="bg-blue-600 py-6 px-8 text-center">
             <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
