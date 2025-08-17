@@ -41,8 +41,8 @@ const Login = () => {
       Theme: {theme} | html.classList: {typeof document !== 'undefined' ? document.documentElement.classList.value : ''}
     </div>
       {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div>
+      {/* <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
+      <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div> */}
 
       <div className="w-full max-w-md">
         {/* Card */}

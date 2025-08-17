@@ -161,7 +161,7 @@ const UnifiedSignup = () => {
     }
   };
   return (
-  <div className={`min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 ${theme === 'dark' ? 'dark' : ''}`}>
+    <div className={`min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 ${theme === 'dark' ? 'dark' : ''}`}>
       {/* Decorative elements */}
       <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20"></div>
       <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-blue-300 opacity-20"></div>
@@ -238,7 +238,7 @@ const UnifiedSignup = () => {
                         value={formData.hospitalName}
                         onChange={handleChange}
                         placeholder="Hospital Name"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black focus:border-transparent"
                         required
                       />
                     </div>
@@ -259,7 +259,7 @@ const UnifiedSignup = () => {
                         value={formData.licenseNumber}
                         onChange={handleChange}
                         placeholder="License Number"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                         required
                       />
                     </div>
@@ -282,7 +282,7 @@ const UnifiedSignup = () => {
                         value={formData.fullName}
                         onChange={handleChange}
                         placeholder="Your Full Name"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                         required
                       />
                     </div>
@@ -305,7 +305,7 @@ const UnifiedSignup = () => {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="Phone Number"
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                           required
                         />
                       </div>
@@ -326,7 +326,7 @@ const UnifiedSignup = () => {
                           value={formData.address}
                           onChange={handleChange}
                           placeholder="Your Address"
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                         />
                       </div>
                     </div>
@@ -350,7 +350,7 @@ const UnifiedSignup = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                     required
                   />
                 </div>
@@ -373,7 +373,7 @@ const UnifiedSignup = () => {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                       required
                       minLength="8"
                     />
@@ -407,7 +407,7 @@ const UnifiedSignup = () => {
                       value={formData.confirmPassword}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                       required
                       minLength="8"
                     />
