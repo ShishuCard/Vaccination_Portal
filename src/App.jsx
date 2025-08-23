@@ -22,7 +22,6 @@ import AffordableImmunization from "./components/Affordable";
 import MissionIndradhanush from "./components/schemes/MissionIndradhanush";
 import UniversalImmunization from "./components/schemes/UniversalImmunization";
 import PMJAYScheme from "./components/schemes/PMJAYScheme";
-import useLenis from "./components/useLenis";// Custom hook for smooth scrolling
 import { useEffect, useState } from "react";
 import Fts  from "./components/Fts";
 import {ToastContainer} from 'react-toastify';
@@ -39,7 +38,7 @@ const ScrollToTop = () => {
 
 const App = () => {
   const [theme, setTheme] = useState( "light");
-  useLenis();
+  
   const [user, loading] = useAuthState(auth);
 
   // Toggle dark class on body for Tailwind v4 dark mode
