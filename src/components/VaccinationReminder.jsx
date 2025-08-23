@@ -1,5 +1,6 @@
 // src/components/VaccineReminder.jsx
 import React from "react";
+import { useTheme } from '../context/ThemeContext';
 
 const dummyReminders = [
   { name: "MMR", dueDate: "2025-08-02" },
@@ -8,6 +9,7 @@ const dummyReminders = [
 ];
 
 const VaccineReminder = () => {
+  const { theme } = useTheme();
   const today = new Date();
 
   const getStatus = (dueDate) => {
@@ -16,7 +18,7 @@ const VaccineReminder = () => {
   };
 
   return (
-    <div className="bg-yellow-50 rounded-lg p-4 mb-6 shadow-sm">
+  <div className={`bg-yellow-50 rounded-lg p-4 mb-6 shadow-sm ${theme === 'dark' ? 'dark' : ''}`}>
       <h3 className="text-lg font-semibold mb-3 text-yellow-900">
         🕒 Upcoming Vaccine Reminders
       </h3>

@@ -53,14 +53,14 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="w-[100%] px-6 py-20 bg-white rounded">
+    <div className="w-[100%] px-6 py-20 bg-white dark:bg-gray-900 rounded">
       {/* Header Section */}
       <div className="text-center mb-20">
-        <h2 className="text-4xl font-light text-gray-900 mb-3">
+        <h2 className="text-4xl font-light text-gray-900 dark:text-white mb-3">
           Meet Our Team
         </h2>
-        <div className="w-12 h-px bg-gray-300 mx-auto mb-8"></div>
-        <p className="text-gray-600 text-lg font-light max-w-2xl mx-auto leading-relaxed">
+        <div className="w-12 h-px bg-gray-300 dark:bg-gray-700 mx-auto mb-8"></div>
+        <p className="text-gray-600 dark:text-gray-300 text-lg font-light max-w-2xl mx-auto leading-relaxed">
           A passionate team dedicated to improving child healthcare accessibility through thoughtful technology solutions.
         </p>
       </div>
@@ -70,25 +70,25 @@ const AboutUs = () => {
         {teamMembers.map((member, index) => (
           <div key={index} className="relative group cursor-pointer">
             {/* Card */}
-            <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-all duration-300">
               {/* Social Links - Top Right Corner */}
               <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
                 <div className="flex flex-col space-y-2">
                   <a 
                     href={member.social.linkedin} 
-                    className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
+                    className="w-8 h-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 dark:text-blue-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
                   >
                     <Linkedin className="w-4 h-4" />
                   </a>
                   <a 
                     href={member.social.github} 
-                    className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:scale-110 hover:-rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
+                    className="w-8 h-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-110 hover:-rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
                   >
                     <Github className="w-4 h-4" />
                   </a>
                   <a 
                     href={member.social.twitter} 
-                    className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-cyan-600 hover:bg-cyan-50 hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
+                    className="w-8 h-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 dark:text-cyan-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-900 hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-sm hover:shadow-lg"
                   >
                     <Twitter className="w-4 h-4" />
                   </a>

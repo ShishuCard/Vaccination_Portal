@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTheme } from '../context/ThemeContext';
 import logo from "../assets/Logo.jpg";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -6,8 +7,8 @@ import { auth } from "../firebase";
 import LoginButton from "./functionalButtons/LoginButton";
 import LogoutButton from "./functionalButtons/LogoutButton";
 
-// Accept toggleTheme and theme as props
-const Navbar = ({ toggleTheme, theme }) => {
+const Navbar = () => {
+  const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [user] = useAuthState(auth);
 
@@ -58,7 +59,10 @@ const Navbar = ({ toggleTheme, theme }) => {
             </div>
             {/* Theme Toggle Button */}
             <button
-              onClick={toggleTheme}
+              onClick={() => {
+                console.log('Toggle button clicked');
+                toggleTheme();
+              }}
               className="ml-4 px-3 py-2 rounded-full text-sm font-medium transition-colors bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100"
               aria-label="Toggle theme"
             >

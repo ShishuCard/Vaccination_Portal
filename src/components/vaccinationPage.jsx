@@ -23,6 +23,7 @@ const VaccinationPage = ({
   onBack,
   onSubmit,
 }) => {
+  const { theme } = useTheme();
   const toggleStatus = (index) => {
     const updated = [...vaccinations];
     updated[index].done = !updated[index].done;
@@ -30,12 +31,12 @@ const VaccinationPage = ({
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-8 bg-white rounded-2xl shadow-xl mt-8 border border-blue-200">
-      <h2 className="text-3xl font-bold text-center mb-6 text-blue-950">
+    <div className={`max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-xl mt-8 border border-blue-200 dark:border-gray-700 ${theme === 'dark' ? 'dark' : ''}`}>
+      <h2 className="text-3xl font-bold text-center mb-6 text-blue-950 dark:text-blue-200">
         Vaccination Schedule
       </h2>
-      <table className="w-full border border-blue-300 rounded-lg overflow-hidden">
-        <thead className="bg-blue-900 text-white">
+      <table className="w-full border border-blue-300 dark:border-gray-700 rounded-lg overflow-hidden">
+        <thead className="bg-blue-900 text-white dark:bg-gray-800 dark:text-blue-200">
           <tr>
             <th className="py-3 px-4 border-b border-blue-300">Vaccine Name</th>
             <th className="py-3 px-4 border-b border-blue-300">
@@ -47,7 +48,7 @@ const VaccinationPage = ({
         </thead>
         <tbody>
           {vaccinations.map((vaccine, i) => (
-            <tr key={i} className={i % 2 === 0 ? "bg-blue-50" : "bg-white"}>
+            <tr key={i} className={i % 2 === 0 ? "bg-blue-50 dark:bg-gray-800" : "bg-white dark:bg-gray-900"}>
               <td className="py-2 px-4 border-b border-blue-200 text-center">
                 {vaccine.name}
               </td>

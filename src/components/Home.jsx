@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+  import { Link } from "react-router-dom";
+  import { useTheme } from '../context/ThemeContext';
+  import ThemeToggleButton from './ThemeToggleButton';
 import image from "../assets/homePageImage.jpg";
 import { FaArrowRight, FaShieldAlt } from "react-icons/fa";
 
 const Home = () => {
+  const { theme } = useTheme();
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 to-white">
+    <div className={`home-hero relative min-h-screen overflow-hidden ${theme === 'dark' ? 'dark' : ''}`}>
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggleButton />
+      </div>
       {/* Content container */}
       <div className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-24 flex flex-col-reverse md:flex-row items-center justify-between min-h-[90vh]">
         {/* Text content */}

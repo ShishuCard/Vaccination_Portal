@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 const TermsOfUse = () => {
+  const { theme } = useTheme();
   return (
-    <div className="max-w-4xl mx-auto px-6 py-16 bg-white shadow-md rounded-2xl text-gray-800">
+  <div className={`max-w-4xl mx-auto px-6 py-16 bg-white dark:bg-gray-900 shadow-md rounded-2xl text-gray-800 dark:text-gray-100 ${theme === 'dark' ? 'dark' : ''}`}>
       <h1 className="text-5xl font-extrabold text-indigo-700 mb-8 text-center">
         Terms of Use
       </h1>

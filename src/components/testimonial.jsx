@@ -1,5 +1,6 @@
 import React from "react";
 import { FaQuoteLeft } from "react-icons/fa";
+import { useTheme } from '../context/ThemeContext';
 import { Link, useNavigate } from "react-router-dom";
 
 const testimonials = [
@@ -27,6 +28,7 @@ const testimonials = [
 ];
 
 const Testimonial = () => {
+  const { theme } = useTheme();
   const navigate = useNavigate(); // ✅ This line was missing
 
   const handleSignupClick = () => {
@@ -47,17 +49,17 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="bg-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div className={`bg-blue-50 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8 ${theme === 'dark' ? 'dark' : ''}`}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-sm font-medium text-blue-600 mb-2">
+          <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2">
             USER TESTIMONIALS
           </p>
-          <h2 className="text-2xl font-light text-gray-900 mb-4">
+          <h2 className="text-2xl font-light text-gray-900 dark:text-white mb-4">
             Trusted by <span className="font-medium">parents</span> and <span className="font-medium">professionals</span>
           </h2>
-          <div className="w-16 h-px bg-blue-200 mx-auto"></div>
+          <div className="w-16 h-px bg-blue-200 dark:bg-blue-900 mx-auto"></div>
         </div>
 
         {/* Testimonials */}

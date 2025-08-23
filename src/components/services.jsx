@@ -1,4 +1,5 @@
 import React from "react";
+import { useTheme } from '../context/ThemeContext';
 import { FaQrcode, FaRupeeSign, FaBullhorn, FaSyringe } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -38,19 +39,20 @@ const services = [
 ];
 
 const Services = () => {
+  const { theme } = useTheme();
   return (
-    <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+  <div className={`py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 ${theme === 'dark' ? 'dark' : ''}`}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="inline-block mb-3 text-base font-semibold text-blue-600">
+          <span className="inline-block mb-3 text-base font-semibold text-blue-600 dark:text-blue-400">
             OUR SERVICES
           </span>
-          <h2 className="text-3xl font-light text-gray-900 mb-4">
+          <h2 className="text-3xl font-light text-gray-900 dark:text-white mb-4">
             Comprehensive <span className="font-medium">Vaccination</span>{" "}
             Solutions
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
+          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
             Technology-driven services designed to simplify child immunization
             for families and healthcare providers.
           </p>
@@ -61,24 +63,24 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="rounded-lg overflow-hidden border border-white/10 shadow-md backdrop-blur-md bg-[rgba(255,255,255,0.1)] hover:shadow-xl transform hover:scale-[1.03] transition duration-300 ease-in-out cursor-pointer"
+              className="rounded-lg overflow-hidden border border-white/10 dark:border-gray-700 shadow-md backdrop-blur-md bg-[rgba(255,255,255,0.1)] dark:bg-[rgba(30,41,59,0.7)] hover:shadow-xl transform hover:scale-[1.03] transition duration-300 ease-in-out cursor-pointer"
             >
-              <div className={`${service.color} p-5 flex justify-center`}>
-                <div className="w-12 h-12 rounded-full bg-white shadow-sm border-gray flex items-center justify-center">
+              <div className={`${service.color} dark:bg-gray-800 p-5 flex justify-center`}>
+                <div className="w-12 h-12 rounded-full bg-white dark:bg-gray-900 shadow-sm border-gray flex items-center justify-center">
                   {React.cloneElement(service.icon, { size: 24 })}
                 </div>
               </div>
               <div className="p-4 sm:p-6 flex flex-col justify-center">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 max-w-xs sm:max-w-none">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 max-w-xs sm:max-w-none">
                   {service.title}
                 </h3>
-                <p className="text-gray-700 text-sm mb-4">
+                <p className="text-gray-700 dark:text-gray-300 text-sm mb-4">
                   {service.description}
                 </p>
                 {service.link ? (
                   <Link
                     to={service.link}
-                    className="group text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200 flex items-center"
+                    className="group text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline transition-colors duration-200 flex items-center"
                   >
                     Learn more
                     <svg
